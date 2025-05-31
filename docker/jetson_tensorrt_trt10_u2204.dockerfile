@@ -46,7 +46,8 @@ RUN cd /tmp && \
     tar -xzvf cmake-3.22.3-linux-aarch64.tar.gz && \
     mv cmake-3.22.3-linux-aarch64 /opt/cmake-3.22.3 && \
     rm cmake-3.22.3-linux-aarch64.tar.gz && \
-    ln -s /opt/cmake-3.22.3/bin/cmake /usr/local/bin/cmake
+    ln -s /opt/cmake-3.22.3/bin/cmake /usr/local/bin/cmake \
+    ln -s /opt/cmake-3.22.3/bin/ctest /usr/local/bin/ctest
 
 # glog
 RUN cd /tmp && \
