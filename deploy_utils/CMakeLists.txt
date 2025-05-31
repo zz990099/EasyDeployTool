@@ -3,3 +3,4 @@ project(deploy_utils)
 
 
 add_subdirectory(image_processing_utils)
+add_subdirectory(test_utils)
