@@ -1,0 +1,296 @@
+name: Push Docker Image
+
+on:
+  push:
+    # 只监听主分支，不监听PR
+    branches: [ master ]
+  schedule:
+    # 每天2点（UTC）定时
+    - cron: '0 2 * * *'
+
+permissions:
+  contents: read
+  packages: write      # ← 加上这一行，允许GITHUB_TOKEN写package
+
+jobs:
+  upload_nvidia_gpu_tensorrt_trt8_u2004:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Free up disk space
+        run: |
+          echo "==== Before ===="
+          df -h
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo apt-get clean
+          docker system prune -af || true
+          echo "==== After ===="
+          df -h
+
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/nvidia_gpu_tensorrt_trt8_u2004.dockerfile
+          push: true
+          tags: |
+            ghcr.io/zz990099/easy_deploy_tool:nvidia_gpu_trt8_u2004
+          no-cache: true
+
+  upload_nvidia_gpu_tensorrt_trt8_u2204:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Free up disk space
+        run: |
+          echo "==== Before ===="
+          df -h
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo apt-get clean
+          docker system prune -af || true
+          echo "==== After ===="
+          df -h
+
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/nvidia_gpu_tensorrt_trt8_u2204.dockerfile
+          push: true
+          tags: |
+            ghcr.io/zz990099/easy_deploy_tool:nvidia_gpu_trt8_u2204
+          no-cache: true
+
+  upload_nvidia_gpu_tensorrt_trt10_u2204:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Free up disk space
+        run: |
+          echo "==== Before ===="
+          df -h
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo apt-get clean
+          docker system prune -af || true
+          echo "==== After ===="
+          df -h
+
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/nvidia_gpu_tensorrt_trt10_u2204.dockerfile
+          push: true
+          tags: |
+            ghcr.io/zz990099/easy_deploy_tool:nvidia_gpu_trt10_u2204
+          no-cache: true
+
+  upload_jetson_tensorrt_trt8_u2004:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Free up disk space
+        run: |
+          echo "==== Before ===="
+          df -h
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo apt-get clean
+          docker system prune -af || true
+          echo "==== After ===="
+          df -h
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/jetson_tensorrt_trt8_u2004.dockerfile
+          push: true
+          tags: |
+            ghcr.io/zz990099/easy_deploy_tool:jetson_trt8_u2004
+          no-cache: true
+          platforms: linux/arm64
+
+  upload_jetson_tensorrt_trt8_u2204:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Free up disk space
+        run: |
+          echo "==== Before ===="
+          df -h
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo apt-get clean
+          docker system prune -af || true
+          echo "==== After ===="
+          df -h
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/jetson_tensorrt_trt8_u2204.dockerfile
+          push: true
+          tags: |
+            ghcr.io/zz990099/easy_deploy_tool:jetson_trt8_u2204
+          no-cache: true
+          platforms: linux/arm64
+
+  upload_jetson_tensorrt_trt10_u2204:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Free up disk space
+        run: |
+          echo "==== Before ===="
+          df -h
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo apt-get clean
+          docker system prune -af || true
+          echo "==== After ===="
+          df -h
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/jetson_tensorrt_trt10_u2204.dockerfile
+          push: true
+          tags: |
+            ghcr.io/zz990099/easy_deploy_tool:jetson_trt10_u2204
+          no-cache: true
+          platforms: linux/arm64
+
+  upload_rknn_230_u2204:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Free up disk space
+        run: |
+          echo "==== Before ===="
+          df -h
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo apt-get clean
+          docker system prune -af || true
+          echo "==== After ===="
+          df -h
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/rknn_230_u2204.dockerfile
+          push: true
+          tags: |
+            ghcr.io/zz990099/easy_deploy_tool:rknn_230_u2204
+          no-cache: true
+          platforms: linux/arm64
