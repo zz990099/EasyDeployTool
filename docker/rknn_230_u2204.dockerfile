@@ -29,7 +29,8 @@ RUN apt-get install -y \
   libxmlsec1-dev \
   libffi-dev \
   mecab-ipadic-utf8 \
-  sudo
+  sudo \
+  libbenchmark-dev
 
 RUN apt-get install -y \
   cmake \

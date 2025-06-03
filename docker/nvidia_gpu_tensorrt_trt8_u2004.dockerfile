@@ -45,7 +45,8 @@ RUN apt install -y \
     libopencv-dev \
     libeigen3-dev \
     libgoogle-glog-dev \
-    libgtest-dev
+    libgtest-dev \
+    libbenchmark-dev
 
 # Install TensorRT + dependencies
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub

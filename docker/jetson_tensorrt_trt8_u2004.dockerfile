@@ -38,7 +38,8 @@ RUN apt install -y \
     libopencv-dev \
     libeigen3-dev \
     libgtest-dev \
-    libassimp-dev
+    libassimp-dev \
+    libbenchmark-dev
 
 # cmake
 RUN cd /tmp && \
