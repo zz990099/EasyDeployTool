@@ -51,9 +51,9 @@ void BaseInferCore::Release()
   mem_buf_pool_.reset();
 }
 
-void BaseInferCore::Init(int mem_buf_size)
+void BaseInferCore::Init(size_t mem_buf_size)
 {
-  if (mem_buf_size <= 0 || mem_buf_size > 100)
+  if (mem_buf_size == 0 || mem_buf_size > 100)
   {
     throw std::invalid_argument("mem_buf_size should be between [1,100], Got: " +
                                 std::to_string(mem_buf_size));

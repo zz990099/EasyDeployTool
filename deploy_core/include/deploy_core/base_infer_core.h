@@ -103,10 +103,10 @@ protected:
  */
 class MemBufferPool {
 public:
-  MemBufferPool(IRotInferCore *infer_core, const int pool_size)
+  MemBufferPool(IRotInferCore *infer_core, const size_t pool_size)
       : pool_size_(pool_size), dynamic_pool_(pool_size)
   {
-    for (int i = 0; i < pool_size; ++i)
+    for (size_t i = 0; i < pool_size; ++i)
     {
       auto blobs_tensor = infer_core->AllocBlobsBuffer();
       dynamic_pool_.BlockPush(blobs_tensor.get());
@@ -146,7 +146,7 @@ public:
   }
 
 private:
-  const int                                        pool_size_;
+  const size_t                                     pool_size_;
   deploy_core::BlockQueue<BlobsTensor *>           dynamic_pool_;
   std::unordered_set<std::unique_ptr<BlobsTensor>> static_pool_;
 };
@@ -230,7 +230,7 @@ protected:
    *
    * @param mem_buf_size number of blobs buffers pre-allocated.
    */
-  void Init(int mem_buf_size = 5);
+  void Init(size_t mem_buf_size = 5);
 
 private:
   std::unique_ptr<MemBufferPool> mem_buf_pool_{nullptr};

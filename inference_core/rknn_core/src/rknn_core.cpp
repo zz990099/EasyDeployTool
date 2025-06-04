@@ -313,11 +313,11 @@ bool RknnInferCore::PreProcess(std::shared_ptr<async_pipeline::IPipelinePackage>
     }
 
     CHECK_STATE(
-        rknn_inputs_set(rknn_ctx_parallel_[0], blob_input_number_, inputs.data()) == RKNN_SUCC,
+        rknn_inputs_set(ctx, blob_input_number_, inputs.data()) == RKNN_SUCC,
         "[rknn core] Inference `rknn_inputs_set` execute failed!!!");
-    CHECK_STATE(rknn_run(rknn_ctx_parallel_[0], nullptr) == RKNN_SUCC,
+    CHECK_STATE(rknn_run(ctx, nullptr) == RKNN_SUCC,
                 "[rknn core] Inference `rknn_run` execute failed!!!");
-    CHECK_STATE(rknn_outputs_get(rknn_ctx_parallel_[0], blob_output_number_, outputs.data(),
+    CHECK_STATE(rknn_outputs_get(ctx, blob_output_number_, outputs.data(),
                                  nullptr) == RKNN_SUCC,
                 "[rknn core] Inference `rknn_outputs_get` execute failed!!!");
 

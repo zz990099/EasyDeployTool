@@ -67,7 +67,7 @@ public:
    *
    * @return int
    */
-  int Size() noexcept;
+  size_t Size() noexcept;
 
   /**
    * @brief Return if the queue is empty.
@@ -114,7 +114,7 @@ public:
    *
    * @return int
    */
-  int GetMaxSize() const noexcept;
+  size_t GetMaxSize() const noexcept;
 
   /**
    * @brief Set the `push` and `take` process disabled, and clear all elements in it.
@@ -230,7 +230,7 @@ std::optional<T> BlockQueue<T>::TryTake() noexcept
 }
 
 template <typename T>
-int BlockQueue<T>::Size() noexcept
+size_t BlockQueue<T>::Size() noexcept
 {
   std::unique_lock<std::mutex> u_lck(lck_);
   return q_.size();
@@ -244,7 +244,7 @@ bool BlockQueue<T>::Empty() noexcept
 }
 
 template <typename T>
-int BlockQueue<T>::GetMaxSize() const noexcept
+size_t BlockQueue<T>::GetMaxSize() const noexcept
 {
   return max_size_;
 }
