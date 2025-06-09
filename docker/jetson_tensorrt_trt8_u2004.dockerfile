@@ -41,6 +41,11 @@ RUN apt install -y \
     libassimp-dev \
     libbenchmark-dev
 
+RUN apt-get install python3-pip -y && \
+  pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple && \
+  pip install pip --upgrade && \
+  pip install pycocotools
+
 # cmake
 RUN cd /tmp && \
     wget https://gp.zz990099.cn/https://github.com/Kitware/CMake/releases/download/v3.22.3/cmake-3.22.3-linux-aarch64.tar.gz && \

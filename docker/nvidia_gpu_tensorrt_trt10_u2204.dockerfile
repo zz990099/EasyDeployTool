@@ -46,7 +46,13 @@ RUN apt install -y \
     libeigen3-dev \
     libgoogle-glog-dev \
     libgtest-dev \
-    libbenchmark-dev
+    libbenchmark-dev \
+    nlohmann-json3-dev
+
+RUN apt-get install python3-pip -y && \
+  pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple && \
+  pip install pip --upgrade && \
+  pip install pycocotools
 
 # Install TensorRT + dependencies
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub

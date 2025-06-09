@@ -30,7 +30,8 @@ RUN apt-get install -y \
   libffi-dev \
   mecab-ipadic-utf8 \
   sudo \
-  libbenchmark-dev
+  libbenchmark-dev \
+  nlohmann-json3-dev
 
 RUN apt-get install -y \
   cmake \
@@ -56,8 +57,9 @@ RUN cd /tmp/rknn-toolkit2-2.3.0/rknpu2/runtime/Linux/librknn_api/ && \
 
 # rknn-toolkit2 python package on arm64
 RUN apt-get install python3-pip -y && \
-  # pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple && \
-  pip install pip --upgrade
+  pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple && \
+  pip install pip --upgrade && \
+  pip install pycocotools
 
 RUN cd /tmp/rknn-toolkit2-2.3.0/rknn-toolkit2/packages/arm64 && \
   pip install rknn_toolkit2-2.3.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl

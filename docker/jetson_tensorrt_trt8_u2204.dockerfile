@@ -39,7 +39,13 @@ RUN apt install -y \
     libeigen3-dev \
     libgtest-dev \
     libassimp-dev \
-    libbenchmark-dev
+    libbenchmark-dev \
+    nlohmann-json3-dev
+
+RUN apt-get install python3-pip -y && \
+  pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple && \
+  pip install pip --upgrade && \
+  pip install pycocotools
 
 # cmake
 RUN cd /tmp && \
