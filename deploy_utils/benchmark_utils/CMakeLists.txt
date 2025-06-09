@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 find_package(OpenCV REQUIRED)
 find_package(glog REQUIRED)
+find_package(benchmark REQUIRED)
 
 set(source_file
     src/detection_2d_benchmark_utils.cpp
@@ -21,6 +22,7 @@ include_directories(
 add_library(${PROJECT_NAME} SHARED ${source_file})
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
+  benchmark::benchmark
   glog::glog
   ${OpenCV_LIBS}
   deploy_core
