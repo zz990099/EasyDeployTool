@@ -1,12 +1,13 @@
 #include "test_utils/detection_2d_test_utils.hpp"
 
-#include "image_drawer.hpp"
+#include "common_utils/image_drawer.hpp"
 
 #include <gtest/gtest.h>
 
 namespace test_utils {
 
 using namespace detection_2d;
+using namespace common_utils;
 
 void test_detection_2d_algorithm_correctness(const std::shared_ptr<BaseDetectionModel> &model,
                                              const std::string &test_image_path,

@@ -4,7 +4,7 @@
 #include <filesystem>
 #include <vector>
 
-namespace test_utils {
+namespace common_utils {
 
 namespace fs = std::filesystem;
 
@@ -21,8 +21,8 @@ inline std::vector<fs::path> get_files_in_directory(const fs::path &directory)
   // 检查目录是否存在
   if (!fs::exists(directory) || !fs::is_directory(directory))
   {
-    std::cerr << "Directory does not exist or is not a directory." << std::endl;
-    return files;
+    throw std::runtime_error("Directory does not exist or is not a directory : " +
+                             directory.string());
   }
 
   // 递归遍历目录
@@ -37,4 +37,4 @@ inline std::vector<fs::path> get_files_in_directory(const fs::path &directory)
   return files;
 }
 
-} // namespace test_utils
+} // namespace common_utils

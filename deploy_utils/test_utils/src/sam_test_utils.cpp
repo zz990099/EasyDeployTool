@@ -1,12 +1,13 @@
 #include "test_utils/sam_test_utils.hpp"
 
-#include "image_drawer.hpp"
+#include "common_utils/image_drawer.hpp"
 
 #include <gtest/gtest.h>
 
 namespace test_utils {
 
 using namespace sam;
+using namespace common_utils;
 
 void test_sam_algorithm_correctness_with_points(const std::shared_ptr<BaseSamModel>    &model,
                                                 const std::vector<std::pair<int, int>> &points,

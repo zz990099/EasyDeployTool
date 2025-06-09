@@ -4,7 +4,7 @@
 #include <glog/logging.h>
 #include <glog/log_severity.h>
 
-namespace test_utils {
+namespace common_utils {
 
 class FPSCounter {
 public:
@@ -60,4 +60,4 @@ private:
   std::chrono::high_resolution_clock::time_point start_time; // 开始时间
 };
 
-} // namespace test_utils
+} // namespace common_utils

@@ -6,6 +6,8 @@
 
 #define DRAW_LINE_THICKNESS 2
 
+namespace common_utils {
+
 class ImageDrawHelper {
 public:
   ImageDrawHelper() = delete;
@@ -66,7 +68,6 @@ public:
         }
       }
     }
-
   }
 
   std::shared_ptr<cv::Mat> getImage() const
@@ -77,3 +78,5 @@ public:
 private:
   std::shared_ptr<cv::Mat> _image;
 };
+
+} // namespace common_utils
