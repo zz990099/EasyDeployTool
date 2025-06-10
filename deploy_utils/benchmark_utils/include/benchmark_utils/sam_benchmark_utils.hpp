@@ -1,6 +1,6 @@
 #pragma once
 
-#include "deploy_core/base_sam.h"
+#include "deploy_core/base_sam.hpp"
 
 #include <benchmark/benchmark.h>
 

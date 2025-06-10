@@ -1,13 +1,6 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-25 14:24:19
- * @LastEditTime: 2024-11-26 21:58:50
- * @FilePath: /easy_deploy/deploy_core/src/base_detection.cpp
- */
-#include "deploy_core/base_detection.h"
+#include "deploy_core/base_detection.hpp"
 
-#include "deploy_core/wrapper.h"
+#include "deploy_core/wrapper.hpp"
 
 namespace easy_deploy {
 

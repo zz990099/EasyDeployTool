@@ -1,12 +1,4 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-25 14:00:38
- * @LastEditTime: 2024-11-26 22:29:22
- * @FilePath: /easy_deploy/deploy_core/include/deploy_core/async_pipeline.h
- */
-#ifndef ___DEPLOY_CORE_ASYNC_PIPELINE_H
-#define ___DEPLOY_CORE_ASYNC_PIPELINE_H
+#pragma once
 
 #include <functional>
 #include <future>
@@ -14,12 +6,9 @@
 #include <thread>
 #include <unordered_map>
 
-
-
-
-#include "deploy_core/async_pipeline_impl.h"
-#include "deploy_core/blob_buffer.h"
-#include "deploy_core/block_queue.h"
+#include "deploy_core/async_pipeline_impl.hpp"
+#include "deploy_core/blob_buffer.hpp"
+#include "common_utils/block_queue.hpp"
 
 namespace easy_deploy {
 
@@ -236,5 +225,3 @@ private:
 };
 
 } // namespace easy_deploy
-
-#endif

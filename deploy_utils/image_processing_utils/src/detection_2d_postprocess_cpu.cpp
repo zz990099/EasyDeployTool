@@ -1,11 +1,4 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-19 18:33:00
- * @LastEditTime: 2024-12-03 15:51:39
- * @FilePath: /EasyDeploy/deploy_utils/image_processing_utils/src/detection_2d_postprocess_cpu.cpp
- */
-#include "detection_2d_util/detection_2d_util.h"
+#include "detection_2d_util/detection_2d_util.hpp"
 
 namespace easy_deploy {
 

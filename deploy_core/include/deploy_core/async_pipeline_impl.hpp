@@ -1,20 +1,12 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-25 14:00:38
- * @LastEditTime: 2024-11-26 21:50:48
- * @FilePath: /easy_deploy/deploy_core/include/deploy_core/async_pipeline_impl.h
- */
-#ifndef __EASY_DEPLOY_ASYNC_PIPELINE_IMPL_H
-#define __EASY_DEPLOY_ASYNC_PIPELINE_IMPL_H
+#pragma once
 
 #include <functional>
 #include <future>
 #include <vector>
 
-#include "deploy_core/block_queue.h"
+#include "common_utils/block_queue.hpp"
 
-#include "deploy_core/common_defination.h"
+#include "deploy_core/common.hpp"
 
 namespace easy_deploy {
 
@@ -344,5 +336,3 @@ private:
 };
 
 } // namespace easy_deploy
-
-#endif

@@ -1,12 +1,4 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-25 14:00:38
- * @LastEditTime: 2024-11-26 09:29:20
- * @FilePath: /EasyDeploy/deploy_core/include/deploy_core/block_queue.h
- */
-#ifndef __EASY_DEPLOY_BLOCK_QUEUE_H
-#define __EASY_DEPLOY_BLOCK_QUEUE_H
+#pragma once
 
 #include <atomic>
 #include <condition_variable>
@@ -298,5 +290,3 @@ void BlockQueue<T>::SetNoMoreInput() noexcept
 }
 
 } // namespace easy_deploy
-
-#endif

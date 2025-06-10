@@ -1,18 +1,10 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-25 14:00:38
- * @LastEditTime: 2024-11-26 09:31:01
- * @FilePath: /EasyDeploy/inference_core/trt_core/src/trt_blob_buffer.hpp
- */
-#ifndef __EASY_DEPLOY_TRT_BLOB_BUFFER_H
-#define __EASY_DEPLOY_TRT_BLOB_BUFFER_H
+#pragma once
 
 #include <cuda_runtime.h>
 #include <assert.h>
 #include <cstring>
 
-#include "deploy_core/blob_buffer.h"
+#include "deploy_core/blob_buffer.hpp"
 
 namespace easy_deploy {
 
@@ -192,5 +184,3 @@ public:
 };
 
 } // namespace easy_deploy
-
-#endif

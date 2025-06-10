@@ -1,11 +1,4 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-19 18:33:00
- * @LastEditTime: 2024-11-26 21:56:31
- * @FilePath: /easy_deploy/deploy_core/src/base_infer_core.cpp
- */
-#include "deploy_core/base_infer_core.h"
+#include "deploy_core/base_infer_core.hpp"
 
 namespace easy_deploy {
 

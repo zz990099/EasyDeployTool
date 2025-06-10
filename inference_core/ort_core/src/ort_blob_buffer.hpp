@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <string.h>
 #include <onnxruntime_cxx_api.h>
-#include "deploy_core/blob_buffer.h"
+#include "deploy_core/blob_buffer.hpp"
 
 namespace easy_deploy {
 

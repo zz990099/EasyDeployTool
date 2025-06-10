@@ -1,13 +1,3 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-19 18:33:00
- * @LastEditTime: 2024-11-26 21:47:33
- * @FilePath: /easy_deploy/deploy_utils/image_processing_utils/src/detection_2d_cuda_preprocess.cu
- */
-
-
-
 #include <opencv2/opencv.hpp>
 
 struct AffineMatrix {

@@ -1,12 +1,4 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-25 14:24:19
- * @LastEditTime: 2024-12-02 20:03:34
- * @FilePath: /easy_deploy/deploy_core/include/deploy_core/base_detection.h
- */
-#ifndef __DEPLOY_CORE_BASE_DETECTION_H
-#define __DEPLOY_CORE_BASE_DETECTION_H
+#pragma once
 
 #include <atomic>
 #include <functional>
@@ -15,8 +7,8 @@
 
 #include <opencv2/opencv.hpp>
 
-#include "deploy_core/async_pipeline.h"
-#include "deploy_core/base_infer_core.h"
+#include "deploy_core/async_pipeline.hpp"
+#include "deploy_core/base_infer_core.hpp"
 
 namespace easy_deploy {
 
@@ -203,5 +195,3 @@ public:
 };
 
 } // namespace easy_deploy
-
-#endif

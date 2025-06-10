@@ -1,14 +1,6 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-19 18:33:05
- * @LastEditTime: 2024-12-02 19:43:10
- * @FilePath: /easy_deploy/inference_core/rknn_core/include/rknn_core/rknn_core.h
- */
-#ifndef __EASY_DEPLOY_INFERENCE_CORE_RKNN_CORE_H
-#define __EASY_DEPLOY_INFERENCE_CORE_RKNN_CORE_H
+#pragma once
 
-#include "deploy_core/base_infer_core.h"
+#include "deploy_core/base_infer_core.hpp"
 
 namespace easy_deploy {
 
@@ -35,5 +27,3 @@ std::shared_ptr<BaseInferCoreFactory> CreateRknnInferCoreFactory(
     const int                                                   parallel_ctx_num = 1);
 
 } // namespace easy_deploy
-
-#endif

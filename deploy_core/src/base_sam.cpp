@@ -1,13 +1,6 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-24 20:05:41
- * @LastEditTime: 2024-11-26 21:57:33
- * @FilePath: /easy_deploy/deploy_core/src/base_sam.cpp
- */
-#include "deploy_core/base_sam.h"
+#include "deploy_core/base_sam.hpp"
 
-#include "deploy_core/wrapper.h"
+#include "deploy_core/wrapper.hpp"
 
 namespace easy_deploy {
 

@@ -1,15 +1,7 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-25 18:38:34
- * @LastEditTime: 2024-12-02 19:03:30
- * @FilePath: /easy_deploy/deploy_core/include/deploy_core/base_sam.h
- */
-#ifndef __EASY_DEPLOY_BASE_STEREO_H
-#define __EASY_DEPLOY_BASE_STEREO_H
+#pragma once
 
-#include "deploy_core/base_infer_core.h"
-#include "deploy_core/common_defination.h"
+#include "deploy_core/base_infer_core.hpp"
+#include "deploy_core/common.hpp"
 
 #include <opencv2/opencv.hpp>
 
@@ -146,5 +138,3 @@ protected:
 };
 
 } // namespace easy_deploy
-
-#endif

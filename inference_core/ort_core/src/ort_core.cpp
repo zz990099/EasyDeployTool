@@ -1,6 +1,4 @@
-#include "ort_core/ort_core.h"
-
-
+#include "ort_core/ort_core.hpp"
 
 #include "ort_blob_buffer.hpp"
 
@@ -91,7 +89,8 @@ OrtInferCore::OrtInferCore(
           {
             s_blob_shape += std::to_string(dim) + "\t";
           }
-          LOG_DEBUG("blob name : %s, blob shape : %s", p_name_shape.first.c_str(), s_blob_shape.c_str());
+          LOG_DEBUG("blob name : %s, blob shape : %s", p_name_shape.first.c_str(),
+                    s_blob_shape.c_str());
         }
       };
 
@@ -203,8 +202,7 @@ std::unique_ptr<BlobsTensor> OrtInferCore::AllocBlobsBuffer()
         ort_session_->GetInputTypeInfo(i).GetTensorTypeAndShapeInfo().GetElementType();
     CHECK_STATE_THROW(
         map_tensor_type_byte_size_.find(tensor_type) != map_tensor_type_byte_size_.end(),
-        "[ort_core] Got invalid tensor type : " +
-            std::to_string(static_cast<uint32_t>(tensor_type)));
+        "[ort_core] Got invalid tensor type : %d", static_cast<uint32_t>(tensor_type));
 
     tensor->name_                      = s_blob_name;
     tensor->byte_size_per_element_     = map_tensor_type_byte_size_.at(tensor_type);
@@ -231,8 +229,7 @@ std::unique_ptr<BlobsTensor> OrtInferCore::AllocBlobsBuffer()
         ort_session_->GetOutputTypeInfo(i).GetTensorTypeAndShapeInfo().GetElementType();
     CHECK_STATE_THROW(
         map_tensor_type_byte_size_.find(tensor_type) != map_tensor_type_byte_size_.end(),
-        "[ort_core] Got invalid tensor type : " +
-            std::to_string(static_cast<uint32_t>(tensor_type)));
+        "[ort_core] Got invalid tensor type : %d", static_cast<uint32_t>(tensor_type));
 
     tensor->name_                      = s_blob_name;
     tensor->byte_size_per_element_     = map_tensor_type_byte_size_.at(tensor_type);

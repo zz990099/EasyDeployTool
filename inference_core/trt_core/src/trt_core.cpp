@@ -1,4 +1,4 @@
-#include "trt_core/trt_core.h"
+#include "trt_core/trt_core.hpp"
 
 // std
 #include <fstream>

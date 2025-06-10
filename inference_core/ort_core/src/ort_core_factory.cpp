@@ -1,11 +1,4 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-12-02 19:43:23
- * @LastEditTime: 2024-12-02 19:50:55
- * @FilePath: /easy_deploy/inference_core/rknn_core/src/rknn_core_factory.cpp
- */
-#include "ort_core/ort_core.h"
+#include "ort_core/ort_core.hpp"
 
 namespace easy_deploy {
 

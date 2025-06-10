@@ -1,4 +1,4 @@
-#include "rknn_core/rknn_core.h"
+#include "rknn_core/rknn_core.hpp"
 #include "rknn_blob_buffer.hpp"
 #include <unordered_map>
 

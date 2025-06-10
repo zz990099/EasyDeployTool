@@ -25,14 +25,14 @@ code structure:
   |-- README.md
   |-- include
   |   `-- deploy_core
-  |       |-- base_infer_core.h
-  |       |-- base_detection.h
-  |       |-- base_sam.h
-  |       |-- async_pipeline.h
-  |       |-- async_pipeline_impl.h
-  |       |-- block_queue.h
-  |       |-- common_defination.h
-  |       `-- wrapper.h
+  |       |-- base_infer_core.hpp
+  |       |-- base_detection.hpp
+  |       |-- base_sam.hpp
+  |       |-- async_pipeline.hpp
+  |       |-- async_pipeline_impl.hpp
+  |       |-- block_queue.hpp
+  |       |-- common.hpp
+  |       `-- wrapper.hpp
   `-- src
       |-- base_detection.cpp
       |-- base_infer_core.cpp
@@ -42,26 +42,26 @@ code structure:
 
   - Abstract interface classes for functional modules
     ```bash
-    |-- base_infer_core.h
-    |-- base_detection.h
-    |-- base_sam.h
+    |-- base_infer_core.hpp
+    |-- base_detection.hpp
+    |-- base_sam.hpp
     ```
-    1. **`base_infer_core.h`**: Defines the core inference functionalities and related abstract classes, while also providing an abstract base class for the foundational features of the inference core module.
-    2. **`base_detection.h`**: Defines the abstract base class for 2D detection functionalities.
-    3. **`base_sam.h`**: Defines the abstract base class for SAM functionalities.
+    1. **`base_infer_core.hpp`**: Defines the core inference functionalities and related abstract classes, while also providing an abstract base class for the foundational features of the inference core module.
+    2. **`base_detection.hpp`**: Defines the abstract base class for 2D detection functionalities.
+    3. **`base_sam.hpp`**: Defines the abstract base class for SAM functionalities.
 
   - Base classes for the asynchronous inference pipeline framework
     ```bash
-    |-- async_pipeline.h
-    |-- async_pipeline_impl.h
-    |-- block_queue.h
-    |-- common_defination.h
-    `-- wrapper.h
+    |-- async_pipeline.hpp
+    |-- async_pipeline_impl.hpp
+    |-- block_queue.hpp
+    |-- common.hpp
+    `-- wrapper.hpp
     ```
-    1. **`async_pipeline.h`** and **`async_pipeline_impl.h`**: Define the asynchronous inference framework and its implementation.
-    2. **`block_queue.h`**: Implements the blocking queue.
-    3. **`common_defination.h`**: Contains common definitions, such as 2D bounding boxes.
-    4. **`wrapper.h`**: Provides wrappers for certain classes, such as the encapsulation of OpenCV's `cv::Mat` format.
+    1. **`async_pipeline.hpp`** and **`async_pipeline_impl.hpp`**: Define the asynchronous inference framework and its implementation.
+    2. **`block_queue.hpp`**: Implements the blocking queue.
+    3. **`common.hpp`**: Contains common definitions, such as 2D bounding boxes.
+    4. **`wrapper.hpp`**: Provides wrappers for certain classes, such as the encapsulation of OpenCV's `cv::Mat` format.
 
 
 ## TODO

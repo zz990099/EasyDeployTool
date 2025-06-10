@@ -1,20 +1,12 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-26 08:42:05
- * @LastEditTime: 2024-12-02 19:03:37
- * @FilePath: /easy_deploy/deploy_core/include/deploy_core/base_infer_core.h
- */
-#ifndef __EASY_DEPLOY_BASE_INFER_CORE_H
-#define __EASY_DEPLOY_BASE_INFER_CORE_H
+#pragma once
 
 #include <memory>
 #include <thread>
 #include <vector>
 #include <unordered_set>
 
-#include "deploy_core/block_queue.h"
-#include "deploy_core/async_pipeline.h"
+#include "common_utils/block_queue.hpp"
+#include "deploy_core/async_pipeline.hpp"
 
 namespace easy_deploy {
 
@@ -246,5 +238,3 @@ public:
 };
 
 } // namespace easy_deploy
-
-#endif

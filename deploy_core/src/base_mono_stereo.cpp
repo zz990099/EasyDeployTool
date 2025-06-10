@@ -1,5 +1,5 @@
-#include "deploy_core/base_stereo.h"
-#include "deploy_core/wrapper.h"
+#include "deploy_core/base_stereo.hpp"
+#include "deploy_core/wrapper.hpp"
 
 namespace easy_deploy {
 

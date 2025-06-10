@@ -4,7 +4,7 @@ We designed `BaseInferCore` and `IBlobsBuffer` to unify inference across framewo
 
 This allows running multiple inference cores (e.g., `onnxruntime` and `rknn` on `RK3588`) to maximize throughput. The async pipeline further boosts performance.
 
-Key details and virtual functions are in `base_infer_core.h`; developers only implement data processing and `blob_buffer` allocation.
+Key details and virtual functions are in `base_infer_core.hpp`; developers only implement data processing and `blob_buffer` allocation.
 
 ## `BaseInferCore`
 

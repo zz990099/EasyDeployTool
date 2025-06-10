@@ -4,7 +4,7 @@
 #include <string.h>
 #include <string>
 #include <rknn_api.h>
-#include "deploy_core/blob_buffer.h"
+#include "deploy_core/blob_buffer.hpp"
 
 namespace easy_deploy {
 

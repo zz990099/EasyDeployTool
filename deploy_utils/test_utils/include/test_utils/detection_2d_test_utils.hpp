@@ -1,6 +1,6 @@
 #pragma once
 
-#include "deploy_core/base_detection.h"
+#include "deploy_core/base_detection.hpp"
 
 namespace easy_deploy {
 

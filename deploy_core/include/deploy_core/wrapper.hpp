@@ -1,14 +1,6 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-25 14:00:38
- * @LastEditTime: 2024-11-26 21:58:32
- * @FilePath: /easy_deploy/deploy_core/include/deploy_core/wrapper.h
- */
-#ifndef __EASY_DEPLOY_WRAPPER_H
-#define __EASY_DEPLOY_WRAPPER_H
+#pragma once
 
-#include "deploy_core/async_pipeline.h"
+#include "deploy_core/async_pipeline.hpp"
 
 #include <opencv2/opencv.hpp>
 
@@ -43,5 +35,3 @@ private:
 };
 
 } // namespace easy_deploy
-
-#endif

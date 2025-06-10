@@ -1,15 +1,7 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-19 18:33:05
- * @LastEditTime: 2024-12-02 19:34:00
- * @FilePath: /easy_deploy/inference_core/trt_core/include/trt_core/trt_core.h
- */
-#ifndef __EASY_DEPLOY_TRT_CORE_H
-#define __EASY_DEPLOY_TRT_CORE_H
+#pragma once
 
 #include <unordered_map>
-#include "deploy_core/base_infer_core.h"
+#include "deploy_core/base_infer_core.hpp"
 
 namespace easy_deploy {
 
@@ -36,5 +28,3 @@ std::shared_ptr<BaseInferCoreFactory> CreateTrtInferCoreFactory(
     const int                                                     mem_buf_size       = 5);
 
 } // namespace easy_deploy
-
-#endif

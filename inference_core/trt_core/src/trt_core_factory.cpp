@@ -1,11 +1,4 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-12-02 19:35:03
- * @LastEditTime: 2024-12-02 19:41:35
- * @FilePath: /easy_deploy/inference_core/trt_core/src/trt_core_factory.cpp
- */
-#include "trt_core/trt_core.h"
+#include "trt_core/trt_core.hpp"
 
 namespace easy_deploy {
 

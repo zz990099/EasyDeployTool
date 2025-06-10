@@ -1,12 +1,4 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-25 14:00:38
- * @LastEditTime: 2024-11-26 22:07:03
- * @FilePath: /easy_deploy/deploy_core/include/deploy_core/common_defination.h
- */
-#ifndef __EASY_DEPLOY_COMMON_DEFINATION_H
-#define __EASY_DEPLOY_COMMON_DEFINATION_H
+#pragma once
 
 #include "common_utils/log.hpp"
 
@@ -87,5 +79,3 @@ enum ImageDataFormat { YUV = 0, RGB = 1, BGR = 2, GRAY = 3 };
   }
 
 } // namespace easy_deploy
-
-#endif

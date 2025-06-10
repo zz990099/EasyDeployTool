@@ -1,17 +1,9 @@
-/*
- * @Description:
- * @Author: Teddywesside 18852056629@163.com
- * @Date: 2024-11-25 15:27:59
- * @LastEditTime: 2024-11-26 21:57:59
- * @FilePath: /easy_deploy/deploy_core/include/deploy_core/blob_buffer.h
- */
-#ifndef __EASY_DEPLOY_BLOB_BUFFER_H
-#define __EASY_DEPLOY_BLOB_BUFFER_H
+#pragma once
 
 #include <memory>
 #include <vector>
 
-#include "deploy_core/common_defination.h"
+#include "deploy_core/common.hpp"
 
 namespace easy_deploy {
 
@@ -94,5 +86,3 @@ private:
 };
 
 } // namespace easy_deploy
-
-#endif
