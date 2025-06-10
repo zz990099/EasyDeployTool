@@ -60,15 +60,15 @@ private:
   ILogger *logger_;
 };
 
-#define REGISTER_EasyDeploy_LOGGER(LoggerDerivedType)                              \
-  namespace {                                                                      \
-  struct LoggerDerivedType##_Registrar {                                           \
-    LoggerDerivedType##_Registrar()                                                \
-    {                                                                              \
+#define REGISTER_EasyDeploy_LOGGER(LoggerDerivedType)                             \
+  namespace {                                                                     \
+  struct LoggerDerivedType##_Registrar {                                          \
+    LoggerDerivedType##_Registrar()                                               \
+    {                                                                             \
       ::easy_deploy::GlobalLogger::instance().SetLogger(new LoggerDerivedType()); \
-    }                                                                              \
-  };                                                                               \
-  static LoggerDerivedType##_Registrar g_##LoggerDerivedType##_registrar;          \
+    }                                                                             \
+  };                                                                              \
+  static LoggerDerivedType##_Registrar g_##LoggerDerivedType##_registrar;         \
   }
 
 inline void FormatMsg(char *buf, size_t buflen, const char *fmt, ...)
@@ -79,14 +79,14 @@ inline void FormatMsg(char *buf, size_t buflen, const char *fmt, ...)
   va_end(args);
 }
 
-#define EasyDeployLog(level, fmt, ...)                                                  \
-  do                                                                                    \
-  {                                                                                     \
+#define EasyDeployLog(level, fmt, ...)                                  \
+  do                                                                    \
+  {                                                                     \
     auto *logger = ::easy_deploy::GlobalLogger::instance().GetLogger(); \
-    if (logger)                                                                         \
-    {                                                                                   \
-      logger->log_##level(fmt, ##__VA_ARGS__);                                          \
-    }                                                                                   \
+    if (logger)                                                         \
+    {                                                                   \
+      logger->log_##level(fmt, ##__VA_ARGS__);                          \
+    }                                                                   \
   } while (0)
 
 #ifdef ENABLE_DEBUG_OUTPUT

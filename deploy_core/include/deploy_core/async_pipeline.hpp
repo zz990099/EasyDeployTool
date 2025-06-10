@@ -137,13 +137,16 @@ public:
   {
     if (map_name2instance_.find(pipeline_name) == map_name2instance_.end())
     {
-      LOG_ERROR("[BaseAsyncPipeline] `PushPipeline` pipeline {%s} is not valid !!!", pipeline_name.c_str());
+      LOG_ERROR("[BaseAsyncPipeline] `PushPipeline` pipeline {%s} is not valid !!!",
+                pipeline_name.c_str());
       return std::future<ResultType>();
     }
 
     if (!map_name2instance_.at(pipeline_name).IsInitialized())
     {
-      LOG_ERROR("[BaseAsyncPipeline] `PushPipeline` pipeline {%s} is not initilized !!!", pipeline_name.c_str());;
+      LOG_ERROR("[BaseAsyncPipeline] `PushPipeline` pipeline {%s} is not initilized !!!",
+                pipeline_name.c_str());
+      ;
       return std::future<ResultType>();
     }
 

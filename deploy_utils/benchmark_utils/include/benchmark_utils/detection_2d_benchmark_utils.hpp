@@ -6,10 +6,10 @@
 
 namespace easy_deploy {
 
-void benchmark_detection_2d_sync(benchmark::State                                        &state,
+void benchmark_detection_2d_sync(benchmark::State                          &state,
                                  const std::shared_ptr<BaseDetectionModel> &model);
 
-void benchmark_detection_2d_async(benchmark::State                                        &state,
+void benchmark_detection_2d_async(benchmark::State                          &state,
                                   const std::shared_ptr<BaseDetectionModel> &model);
 
 } // namespace easy_deploy

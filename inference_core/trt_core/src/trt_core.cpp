@@ -150,7 +150,7 @@ private:
   std::unordered_map<std::string, std::vector<size_t>> map_blob_name2shape_;
 };
 
-TensorrtLogger TrtInferCore::logger_ {};
+TensorrtLogger TrtInferCore::logger_{};
 
 TrtInferCore::TrtInferCore(std::string engine_path, const int mem_buf_size)
 {

@@ -31,8 +31,8 @@ static void WriteResultToJson(const std::string &file_path, const std::vector<BB
 }
 
 static void generate_coco_result(const std::shared_ptr<BaseDetectionModel> &model,
-                                 const std::string &coco_val_dir_path,
-                                 const std::string &save_result_tmp_path)
+                                 const std::string                         &coco_val_dir_path,
+                                 const std::string                         &save_result_tmp_path)
 {
   static const std::unordered_set<std::string> valid_ext{".jpg", ".png", ".jpeg", ".bmp"};
 
@@ -101,7 +101,7 @@ static void eval_detection_result_with_python(const std::string &save_result_tmp
 }
 
 void eval_accuracy_coco_detection_2d(const std::shared_ptr<BaseDetectionModel> &model,
-                                     const std::string &coco_val_dir_path,
+                                     const std::string                         &coco_val_dir_path,
                                      const std::string &coco_annotations_path)
 {
   const std::string save_result_tmp_paht = "/tmp/detection_coco_val_result/";

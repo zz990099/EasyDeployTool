@@ -128,8 +128,7 @@ public:
  * independent.
  *
  */
-class BaseSamModel : public ISamModel,
-                     public BaseAsyncPipeline<cv::Mat, SamGenResultType> {
+class BaseSamModel : public ISamModel, public BaseAsyncPipeline<cv::Mat, SamGenResultType> {
 protected:
   using ParsingType = std::shared_ptr<IPipelinePackage>;
   /**
@@ -142,7 +141,7 @@ protected:
    * @param mask_points_decoder_core
    * @param mask_boxes_decoder_core
    */
-  BaseSamModel(const std::string                             &model_name,
+  BaseSamModel(const std::string             &model_name,
                std::shared_ptr<BaseInferCore> image_encoder_core,
                std::shared_ptr<BaseInferCore> mask_points_decoder_core,
                std::shared_ptr<BaseInferCore> mask_boxes_decoder_core);

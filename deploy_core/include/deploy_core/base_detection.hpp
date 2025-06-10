@@ -21,8 +21,8 @@ class IDetectionPreProcess {
 public:
   virtual float Preprocess(std::shared_ptr<IPipelineImageData> input_image_data,
                            ITensor                            *tensor,
-                           int                                                 dst_height,
-                           int                                                 dst_width) = 0;
+                           int                                 dst_height,
+                           int                                 dst_width) = 0;
 };
 
 /**
@@ -126,9 +126,8 @@ public:
  * returns a valid `std::future<>` instance before involke `get()` method.
  *
  */
-class BaseDetectionModel
-    : public IDetectionModel,
-      public BaseAsyncPipeline<std::vector<BBox2D>, DetectionGenResultType> {
+class BaseDetectionModel : public IDetectionModel,
+                           public BaseAsyncPipeline<std::vector<BBox2D>, DetectionGenResultType> {
   typedef std::shared_ptr<IPipelinePackage> ParsingType;
 
 public:

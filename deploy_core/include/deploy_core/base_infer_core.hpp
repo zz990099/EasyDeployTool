@@ -139,7 +139,7 @@ public:
 
 private:
   const size_t                                     pool_size_;
-  BlockQueue<BlobsTensor *>           dynamic_pool_;
+  BlockQueue<BlobsTensor *>                        dynamic_pool_;
   std::unordered_set<std::unique_ptr<BlobsTensor>> static_pool_;
 };
 
@@ -168,9 +168,8 @@ public:
  * process. It should be used by specific algorithms in its entirety.
  *
  */
-class BaseInferCore
-    : public IRotInferCore,
-      protected BaseAsyncPipeline<bool, _DummyInferCoreGenReulstType> {
+class BaseInferCore : public IRotInferCore,
+                      protected BaseAsyncPipeline<bool, _DummyInferCoreGenReulstType> {
 protected:
   BaseInferCore();
   typedef std::shared_ptr<IPipelinePackage> ParsingType;

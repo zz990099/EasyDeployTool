@@ -12,10 +12,10 @@ namespace easy_deploy {
  * @param points
  * @param labels
  */
-static bool CheckValidArguments(const cv::Mat                                        &image,
-                                const std::shared_ptr<IRotInferCore> &infer_core,
-                                const std::vector<std::pair<int, int>>               &points,
-                                const std::vector<int> &labels) noexcept
+static bool CheckValidArguments(const cv::Mat                          &image,
+                                const std::shared_ptr<IRotInferCore>   &infer_core,
+                                const std::vector<std::pair<int, int>> &points,
+                                const std::vector<int>                 &labels) noexcept
 {
   if (image.empty())
   {
@@ -43,9 +43,9 @@ static bool CheckValidArguments(const cv::Mat                                   
  * @param infer_core
  * @param boxes
  */
-static bool CheckValidArguments(const cv::Mat                                        &image,
+static bool CheckValidArguments(const cv::Mat                        &image,
                                 const std::shared_ptr<IRotInferCore> &infer_core,
-                                const std::vector<BBox2D> &boxes) noexcept
+                                const std::vector<BBox2D>            &boxes) noexcept
 {
   if (image.empty())
   {
@@ -67,7 +67,7 @@ static bool CheckValidArguments(const cv::Mat                                   
   return true;
 }
 
-BaseSamModel::BaseSamModel(const std::string                             &model_name,
+BaseSamModel::BaseSamModel(const std::string             &model_name,
                            std::shared_ptr<BaseInferCore> image_encoder_core,
                            std::shared_ptr<BaseInferCore> mask_points_decoder_core,
                            std::shared_ptr<BaseInferCore> mask_boxes_decoder_core)

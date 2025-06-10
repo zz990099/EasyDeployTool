@@ -49,15 +49,15 @@ enum ImageDataFormat { YUV = 0, RGB = 1, BGR = 2, GRAY = 3 };
     }                                \
   }
 
-#define CHECK_STATE_THROW(state, fmt, ...)                             \
-  {                                                                    \
-    if (!(state))                                                      \
-    {                                                                  \
-      LOG_ERROR(fmt, ##__VA_ARGS__);                                   \
-      char _msg[1024];                                                 \
+#define CHECK_STATE_THROW(state, fmt, ...)               \
+  {                                                      \
+    if (!(state))                                        \
+    {                                                    \
+      LOG_ERROR(fmt, ##__VA_ARGS__);                     \
+      char _msg[1024];                                   \
       FormatMsg(_msg, sizeof(_msg), fmt, ##__VA_ARGS__); \
-      throw std::runtime_error(_msg);                                  \
-    }                                                                  \
+      throw std::runtime_error(_msg);                    \
+    }                                                    \
   }
 
 #define MESSURE_DURATION(run)                                                              \

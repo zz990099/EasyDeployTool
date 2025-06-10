@@ -3,10 +3,10 @@
 namespace easy_deploy {
 
 struct OrtInferCoreParams {
-  std::string                                           onnx_path;
+  std::string                                            onnx_path;
   std::unordered_map<std::string, std::vector<uint64_t>> input_blobs_shape;
   std::unordered_map<std::string, std::vector<uint64_t>> output_blobs_shape;
-  int                                                   num_threads;
+  int                                                    num_threads;
 };
 
 class OrtInferCoreFactory : public BaseInferCoreFactory {
@@ -25,10 +25,10 @@ private:
 };
 
 std::shared_ptr<BaseInferCoreFactory> CreateOrtInferCoreFactory(
-    const std::string                                            onnx_path,
+    const std::string                                             onnx_path,
     const std::unordered_map<std::string, std::vector<uint64_t>> &input_blobs_shape,
     const std::unordered_map<std::string, std::vector<uint64_t>> &output_blobs_shape,
-    const int                                                    num_threads)
+    const int                                                     num_threads)
 {
   OrtInferCoreParams params;
   params.onnx_path          = onnx_path;

@@ -149,9 +149,8 @@ public:
   void SetShape(const std::vector<size_t> &shape) override
   {
     size_t this_shape_byte_size = byte_size_per_element_ * CumVector(shape);
-    CHECK_STATE_THROW(
-        this_shape_byte_size <= GetBufferMaxByteSize(),
-        "[TrtTensor] `SetShape` Got invalid shape: exceeds max byte size !");
+    CHECK_STATE_THROW(this_shape_byte_size <= GetBufferMaxByteSize(),
+                      "[TrtTensor] `SetShape` Got invalid shape: exceeds max byte size !");
     current_shape_ = shape;
   }
 
@@ -177,10 +176,10 @@ public:
   DataLocation        current_location_{DataLocation::HOST};
   std::vector<size_t> current_shape_;
   std::vector<size_t> default_shape_;
-  size_t byte_size_per_element_;
+  size_t              byte_size_per_element_;
 
-  std::unique_ptr<void, std::function<void(void*)>> self_maintain_buffer_device_{nullptr};
-  std::unique_ptr<u_char[]> self_maintain_buffer_host_{nullptr};
+  std::unique_ptr<void, std::function<void(void *)>> self_maintain_buffer_device_{nullptr};
+  std::unique_ptr<u_char[]>                          self_maintain_buffer_host_{nullptr};
 };
 
 } // namespace easy_deploy

@@ -64,7 +64,8 @@ std::future<cv::Mat> BaseStereoMatchingModel::ComputeDispAsync(const cv::Mat &le
   package->infer_buffer     = inference_core_->GetBuffer(true);
   if (package->infer_buffer == nullptr)
   {
-    LOG_ERROR("[BaseStereoMatchingModel] `ComputeDispAsync` Got invalid inference core buffer ptr !!!");
+    LOG_ERROR(
+        "[BaseStereoMatchingModel] `ComputeDispAsync` Got invalid inference core buffer ptr !!!");
     return std::future<cv::Mat>();
   }
 

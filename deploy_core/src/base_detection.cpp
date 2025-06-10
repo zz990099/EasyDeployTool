@@ -16,9 +16,9 @@ std::string BaseDetectionModel::detection_pipeline_name_ = "DetectionPipeline";
  * @return std::shared_ptr<DetectionPipelinePackage>
  */
 static std::shared_ptr<DetectionPipelinePackage> CreateDetectionPipelineUnit(
-    const cv::Mat                               &input_image,
-    float                                        conf_thresh,
-    bool                                         isRGB,
+    const cv::Mat               &input_image,
+    float                        conf_thresh,
+    bool                         isRGB,
     std::shared_ptr<BlobsTensor> blob_buffers)
 {
   // 1. construct the image wrapper

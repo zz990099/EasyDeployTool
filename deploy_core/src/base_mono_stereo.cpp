@@ -5,8 +5,7 @@ namespace easy_deploy {
 
 const std::string BaseMonoStereoModel::mono_stereo_pipeline_name_ = "stereo_pipeline";
 
-BaseMonoStereoModel::BaseMonoStereoModel(
-    const std::shared_ptr<BaseInferCore> &inference_core)
+BaseMonoStereoModel::BaseMonoStereoModel(const std::shared_ptr<BaseInferCore> &inference_core)
     : inference_core_(inference_core)
 {
   auto preprocess_block = BaseAsyncPipeline::BuildPipelineBlock(

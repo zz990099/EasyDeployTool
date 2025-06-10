@@ -6,13 +6,12 @@
 namespace easy_deploy {
 
 void eval_accuracy_coco_detection_2d(const std::shared_ptr<BaseDetectionModel> &model,
-                                     const std::string &coco_val_dir_path,
+                                     const std::string                         &coco_val_dir_path,
                                      const std::string &coco_annotations_path);
 
 class EvalAccuracyDetection2DFixture {
 public:
-  using SetUpReturnType =
-      std::tuple<std::shared_ptr<BaseDetectionModel>, std::string, std::string>;
+  using SetUpReturnType = std::tuple<std::shared_ptr<BaseDetectionModel>, std::string, std::string>;
 
   virtual ~EvalAccuracyDetection2DFixture() = default;
   // 子类重写SetUp即可

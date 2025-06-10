@@ -47,8 +47,7 @@ public:
   }
 };
 
-class BaseStereoMatchingModel
-    : public BaseAsyncPipeline<cv::Mat, StereoGenResultType> {
+class BaseStereoMatchingModel : public BaseAsyncPipeline<cv::Mat, StereoGenResultType> {
 protected:
   using ParsingType = std::shared_ptr<IPipelinePackage>;
 
@@ -111,8 +110,7 @@ public:
   }
 };
 
-class BaseMonoStereoModel
-    : public BaseAsyncPipeline<cv::Mat, MonoStereoGenResultType> {
+class BaseMonoStereoModel : public BaseAsyncPipeline<cv::Mat, MonoStereoGenResultType> {
 protected:
   using ParsingType = std::shared_ptr<IPipelinePackage>;
 

@@ -6,7 +6,6 @@
 
 #include <gflags/gflags.h>
 
-
 namespace easy_deploy {
 
 struct FixtureCase {

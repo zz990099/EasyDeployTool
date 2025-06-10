@@ -3,10 +3,10 @@
 namespace easy_deploy {
 
 struct TrtInferCoreParams {
-  std::string                                           model_path;
+  std::string                                            model_path;
   std::unordered_map<std::string, std::vector<uint64_t>> input_blobs_shape;
   std::unordered_map<std::string, std::vector<uint64_t>> output_blobs_shape;
-  int                                                   mem_buf_size;
+  int                                                    mem_buf_size;
 };
 
 class TrtInferCoreFactory : public BaseInferCoreFactory {
@@ -25,10 +25,10 @@ private:
 };
 
 std::shared_ptr<BaseInferCoreFactory> CreateTrtInferCoreFactory(
-    std::string                                                  model_path,
+    std::string                                                   model_path,
     const std::unordered_map<std::string, std::vector<uint64_t>> &input_blobs_shape,
     const std::unordered_map<std::string, std::vector<uint64_t>> &output_blobs_shape,
-    const int                                                    mem_buf_size)
+    const int                                                     mem_buf_size)
 {
   TrtInferCoreParams params;
   params.model_path         = model_path;

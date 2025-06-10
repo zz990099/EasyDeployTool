@@ -62,7 +62,7 @@ private:
       const std::unordered_map<std::string, RknnInputTensorType> &map_blob_type);
 
 private:
-  std::vector<rknn_context>                  rknn_ctx_parallel_;
+  std::vector<rknn_context>     rknn_ctx_parallel_;
   BlockQueue<rknn_context>      bq_ctx_;
   BlockQueue<std::future<bool>> bq_async_future_;
 

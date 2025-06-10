@@ -20,8 +20,8 @@ public:
 
   float Preprocess(std::shared_ptr<IPipelineImageData> input_image_data,
                    ITensor                            *tensor,
-                   int                                                 dst_height,
-                   int                                                 dst_width) override;
+                   int                                 dst_height,
+                   int                                 dst_width) override;
 
   ~DetPreProcessCUDA();
 
@@ -49,11 +49,10 @@ DetPreProcessCUDA::DetPreProcessCUDA(const int max_src_height,
   }
 }
 
-float DetPreProcessCUDA::Preprocess(
-    std::shared_ptr<IPipelineImageData> input_image_data,
-    ITensor                            *tensor,
-    int                                                 dst_height,
-    int                                                 dst_width)
+float DetPreProcessCUDA::Preprocess(std::shared_ptr<IPipelineImageData> input_image_data,
+                                    ITensor                            *tensor,
+                                    int                                 dst_height,
+                                    int                                 dst_width)
 {
   // 1. Make sure the buffer ptr is on device side
   tensor->SetBufferLocation(DataLocation::DEVICE);

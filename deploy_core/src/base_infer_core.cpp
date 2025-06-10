@@ -5,11 +5,11 @@ namespace easy_deploy {
 // used in sync infer
 struct _InnerSyncInferPackage : public IPipelinePackage {
 public:
-  BlobsTensor* GetInferBuffer() override
+  BlobsTensor *GetInferBuffer() override
   {
     return buffer;
   }
-  BlobsTensor* buffer;
+  BlobsTensor *buffer;
 };
 
 BaseInferCore::BaseInferCore()
@@ -23,7 +23,7 @@ BaseInferCore::BaseInferCore()
   ConfigPipeline("InferCore Pipieline", {preprocess_block, inference_block, postprocess_block});
 }
 
-bool BaseInferCore::SyncInfer(BlobsTensor* tensors, const int batch_size)
+bool BaseInferCore::SyncInfer(BlobsTensor *tensors, const int batch_size)
 {
   auto inner_package    = std::make_shared<_InnerSyncInferPackage>();
   inner_package->buffer = tensors;
