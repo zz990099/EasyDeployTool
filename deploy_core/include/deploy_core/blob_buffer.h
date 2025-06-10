@@ -13,7 +13,7 @@
 
 #include "deploy_core/common_defination.h"
 
-namespace inference_core {
+namespace easy_deploy {
 
 class ITensor {
 public:
@@ -93,6 +93,6 @@ private:
   std::unordered_map<std::string, std::unique_ptr<ITensor>> tensor_map_;
 };
 
-} // namespace inference_core
+} // namespace easy_deploy
 
 #endif

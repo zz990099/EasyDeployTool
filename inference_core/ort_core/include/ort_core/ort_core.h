@@ -10,7 +10,7 @@
 
 #include "deploy_core/base_infer_core.h"
 
-namespace inference_core {
+namespace easy_deploy {
 
 std::shared_ptr<BaseInferCore> CreateOrtInferCore(
     const std::string                                             onnx_path,
@@ -24,6 +24,6 @@ std::shared_ptr<BaseInferCoreFactory> CreateOrtInferCoreFactory(
     const std::unordered_map<std::string, std::vector<uint64_t>> &output_blobs_shape = {},
     const int                                                     num_threads        = 0);
 
-} // namespace inference_core
+} // namespace easy_deploy
 
 #endif

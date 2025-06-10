@@ -7,7 +7,7 @@
  */
 #include "trt_core/trt_core.h"
 
-namespace inference_core {
+namespace easy_deploy {
 
 struct TrtInferCoreParams {
   std::string                                           model_path;
@@ -46,4 +46,4 @@ std::shared_ptr<BaseInferCoreFactory> CreateTrtInferCoreFactory(
   return std::make_shared<TrtInferCoreFactory>(params);
 }
 
-} // namespace inference_core
+} // namespace easy_deploy

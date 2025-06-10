@@ -16,7 +16,7 @@
 
 #include "deploy_core/common_defination.h"
 
-namespace async_pipeline {
+namespace easy_deploy {
 
 /**
  * @brief Async Pipeline Block
@@ -182,7 +182,7 @@ public:
     for (int i = 0; i < n + 1; ++i)
     {
       block_queue_.emplace_back(
-          std::make_shared<deploy_core::BlockQueue<InnerParsingType>>(bq_max_size));
+          std::make_shared<BlockQueue<InnerParsingType>>(bq_max_size));
     }
     pipeline_close_flag_.store(false);
 
@@ -253,8 +253,8 @@ public:
   }
 
 private:
-  bool ThreadExcuteEntry(std::shared_ptr<deploy_core::BlockQueue<InnerParsingType>> bq_input,
-                         std::shared_ptr<deploy_core::BlockQueue<InnerParsingType>> bq_output,
+  bool ThreadExcuteEntry(std::shared_ptr<BlockQueue<InnerParsingType>> bq_input,
+                         std::shared_ptr<BlockQueue<InnerParsingType>> bq_output,
                          const InnerBlock_t                                        &pipeline_block)
   {
     LOG_DEBUG("[AsyncPipelineInstance] {%s} thread start!", pipeline_block.GetName().c_str());
@@ -298,7 +298,7 @@ private:
     return true;
   }
 
-  bool ThreadOutputEntry(std::shared_ptr<deploy_core::BlockQueue<InnerParsingType>> bq_input)
+  bool ThreadOutputEntry(std::shared_ptr<BlockQueue<InnerParsingType>> bq_input)
   {
     LOG_DEBUG("[AsyncPipelineInstance] {Output} thread start!");
     while (!pipeline_close_flag_)
@@ -335,7 +335,7 @@ private:
 
   InnerContext_t inner_context_;
 
-  std::vector<std::shared_ptr<deploy_core::BlockQueue<InnerParsingType>>> block_queue_;
+  std::vector<std::shared_ptr<BlockQueue<InnerParsingType>>> block_queue_;
   std::vector<std::future<bool>>                                          async_futures_;
 
   std::atomic<bool> pipeline_close_flag_{true};
@@ -343,6 +343,6 @@ private:
   std::atomic<bool> pipeline_initialized_{false};
 };
 
-} // namespace async_pipeline
+} // namespace easy_deploy
 
 #endif

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cstring>
 
-namespace common_utils {
+namespace easy_deploy {
 
 GlobalLogger::GlobalLogger() : logger_(nullptr)
 {}
@@ -112,4 +112,4 @@ protected:
 
 REGISTER_EasyDeploy_LOGGER(SimpleLogger);
 
-} // namespace common_utils
+} // namespace easy_deploy

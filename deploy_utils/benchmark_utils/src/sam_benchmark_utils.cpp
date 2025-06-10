@@ -3,9 +3,9 @@
 #include <benchmark/benchmark.h>
 #include <glog/logging.h>
 
-namespace benchmark_utils {
+namespace easy_deploy {
 
-using namespace sam;
+using namespace easy_deploy;
 
 void benchmark_sam_sync(benchmark::State &state, const std::shared_ptr<BaseSamModel> &model)
 {
@@ -43,4 +43,4 @@ void benchmark_sam_async(benchmark::State &state, const std::shared_ptr<BaseSamM
   state.SetItemsProcessed(state.iterations() * state.range(0));
 }
 
-} // namespace benchmark_utils
+} // namespace easy_deploy

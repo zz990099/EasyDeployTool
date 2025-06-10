@@ -7,7 +7,7 @@
  */
 #include "rknn_core/rknn_core.h"
 
-namespace inference_core {
+namespace easy_deploy {
 
 struct RknnInferCoreParams {
   std::string                                          model_path;
@@ -46,4 +46,4 @@ std::shared_ptr<BaseInferCoreFactory> CreateRknnInferCoreFactory(
   return std::make_shared<RknnInferCoreFactory>(params);
 }
 
-} // namespace inference_core
+} // namespace easy_deploy

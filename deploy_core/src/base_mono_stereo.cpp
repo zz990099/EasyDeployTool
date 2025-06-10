@@ -1,12 +1,12 @@
 #include "deploy_core/base_stereo.h"
 #include "deploy_core/wrapper.h"
 
-namespace stereo {
+namespace easy_deploy {
 
 const std::string BaseMonoStereoModel::mono_stereo_pipeline_name_ = "stereo_pipeline";
 
 BaseMonoStereoModel::BaseMonoStereoModel(
-    const std::shared_ptr<inference_core::BaseInferCore> &inference_core)
+    const std::shared_ptr<BaseInferCore> &inference_core)
     : inference_core_(inference_core)
 {
   auto preprocess_block = BaseAsyncPipeline::BuildPipelineBlock(
@@ -66,4 +66,4 @@ std::future<cv::Mat> BaseMonoStereoModel::ComputeDepthAsync(const cv::Mat &input
   return BaseAsyncPipeline::PushPipeline(mono_stereo_pipeline_name_, package);
 }
 
-} // namespace stereo
+} // namespace easy_deploy

@@ -7,7 +7,7 @@
  */
 #include "ort_core/ort_core.h"
 
-namespace inference_core {
+namespace easy_deploy {
 
 struct OrtInferCoreParams {
   std::string                                           onnx_path;
@@ -46,4 +46,4 @@ std::shared_ptr<BaseInferCoreFactory> CreateOrtInferCoreFactory(
   return std::make_shared<OrtInferCoreFactory>(params);
 }
 
-} // namespace inference_core
+} // namespace easy_deploy

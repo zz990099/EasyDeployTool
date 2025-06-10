@@ -4,10 +4,9 @@
 
 #include <gtest/gtest.h>
 
-namespace test_utils {
+namespace easy_deploy {
 
-using namespace detection_2d;
-using namespace common_utils;
+using namespace easy_deploy;
 
 void test_detection_2d_algorithm_correctness(const std::shared_ptr<BaseDetectionModel> &model,
                                              const std::string &test_image_path,
@@ -77,4 +76,4 @@ void test_detection_2d_algorithm_async_correctness(const std::shared_ptr<BaseDet
       << ", but got : " << det_results.size();
 }
 
-} // namespace test_utils
+} // namespace easy_deploy

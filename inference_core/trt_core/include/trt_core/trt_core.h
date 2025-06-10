@@ -11,7 +11,7 @@
 #include <unordered_map>
 #include "deploy_core/base_infer_core.h"
 
-namespace inference_core {
+namespace easy_deploy {
 
 /**
  * @brief Construct `TrtInferCore` by providing tensorrt engine file path, max(default) blobs
@@ -35,6 +35,6 @@ std::shared_ptr<BaseInferCoreFactory> CreateTrtInferCoreFactory(
     const std::unordered_map<std::string, std::vector<uint64_t>> &output_blobs_shape = {},
     const int                                                     mem_buf_size       = 5);
 
-} // namespace inference_core
+} // namespace easy_deploy
 
 #endif

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace common_utils {
+namespace easy_deploy {
 
 inline void progress_bar(size_t cur, size_t total)
 {
@@ -22,4 +22,4 @@ inline void progress_bar(size_t cur, size_t total)
   std::cout << "] " << int(progress * 100.0) << "% (" << cur << "/" << total << ")" << std::flush;
 }
 
-} // namespace common_utils
+} // namespace easy_deploy

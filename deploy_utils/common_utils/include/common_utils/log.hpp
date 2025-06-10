@@ -4,7 +4,7 @@
 #include <cstdarg>
 #include <mutex>
 
-namespace common_utils {
+namespace easy_deploy {
 
 class ILogger {
 public:
@@ -65,7 +65,7 @@ private:
   struct LoggerDerivedType##_Registrar {                                           \
     LoggerDerivedType##_Registrar()                                                \
     {                                                                              \
-      ::common_utils::GlobalLogger::instance().SetLogger(new LoggerDerivedType()); \
+      ::easy_deploy::GlobalLogger::instance().SetLogger(new LoggerDerivedType()); \
     }                                                                              \
   };                                                                               \
   static LoggerDerivedType##_Registrar g_##LoggerDerivedType##_registrar;          \
@@ -82,7 +82,7 @@ inline void FormatMsg(char *buf, size_t buflen, const char *fmt, ...)
 #define EasyDeployLog(level, fmt, ...)                                                  \
   do                                                                                    \
   {                                                                                     \
-    common_utils::ILogger *logger = common_utils::GlobalLogger::instance().GetLogger(); \
+    auto *logger = ::easy_deploy::GlobalLogger::instance().GetLogger(); \
     if (logger)                                                                         \
     {                                                                                   \
       logger->log_##level(fmt, ##__VA_ARGS__);                                          \
@@ -102,4 +102,4 @@ inline void FormatMsg(char *buf, size_t buflen, const char *fmt, ...)
 #define LOG_WARN(fmt, ...) EasyDeployLog(warn, fmt, ##__VA_ARGS__)
 #define LOG_ERROR(fmt, ...) EasyDeployLog(error, fmt, ##__VA_ARGS__)
 
-} // namespace common_utils
+} // namespace easy_deploy

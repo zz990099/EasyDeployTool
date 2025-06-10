@@ -4,7 +4,7 @@
 #include <filesystem>
 #include <vector>
 
-namespace common_utils {
+namespace easy_deploy {
 
 namespace fs = std::filesystem;
 
@@ -37,4 +37,4 @@ inline std::vector<fs::path> get_files_in_directory(const fs::path &directory)
   return files;
 }
 
-} // namespace common_utils
+} // namespace easy_deploy

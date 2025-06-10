@@ -3,16 +3,16 @@
 #include "deploy_core/base_detection.h"
 #include "my_fixture.hpp"
 
-namespace eval_utils {
+namespace easy_deploy {
 
-void eval_accuracy_coco_detection_2d(const std::shared_ptr<detection_2d::BaseDetectionModel> &model,
+void eval_accuracy_coco_detection_2d(const std::shared_ptr<BaseDetectionModel> &model,
                                      const std::string &coco_val_dir_path,
                                      const std::string &coco_annotations_path);
 
 class EvalAccuracyDetection2DFixture {
 public:
   using SetUpReturnType =
-      std::tuple<std::shared_ptr<detection_2d::BaseDetectionModel>, std::string, std::string>;
+      std::tuple<std::shared_ptr<BaseDetectionModel>, std::string, std::string>;
 
   virtual ~EvalAccuracyDetection2DFixture() = default;
   // 子类重写SetUp即可
@@ -37,4 +37,4 @@ public:
 #define BOOST_DO_JOIN2(X, Y) X##Y
 #endif
 
-} // namespace eval_utils
+} // namespace easy_deploy

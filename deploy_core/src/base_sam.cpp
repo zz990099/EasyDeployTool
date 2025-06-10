@@ -9,7 +9,7 @@
 
 #include "deploy_core/wrapper.h"
 
-namespace sam {
+namespace easy_deploy {
 
 /**
  * @brief Check if the input arguments are valid
@@ -20,7 +20,7 @@ namespace sam {
  * @param labels
  */
 static bool CheckValidArguments(const cv::Mat                                        &image,
-                                const std::shared_ptr<inference_core::IRotInferCore> &infer_core,
+                                const std::shared_ptr<IRotInferCore> &infer_core,
                                 const std::vector<std::pair<int, int>>               &points,
                                 const std::vector<int> &labels) noexcept
 {
@@ -51,7 +51,7 @@ static bool CheckValidArguments(const cv::Mat                                   
  * @param boxes
  */
 static bool CheckValidArguments(const cv::Mat                                        &image,
-                                const std::shared_ptr<inference_core::IRotInferCore> &infer_core,
+                                const std::shared_ptr<IRotInferCore> &infer_core,
                                 const std::vector<BBox2D> &boxes) noexcept
 {
   if (image.empty())
@@ -75,9 +75,9 @@ static bool CheckValidArguments(const cv::Mat                                   
 }
 
 BaseSamModel::BaseSamModel(const std::string                             &model_name,
-                           std::shared_ptr<inference_core::BaseInferCore> image_encoder_core,
-                           std::shared_ptr<inference_core::BaseInferCore> mask_points_decoder_core,
-                           std::shared_ptr<inference_core::BaseInferCore> mask_boxes_decoder_core)
+                           std::shared_ptr<BaseInferCore> image_encoder_core,
+                           std::shared_ptr<BaseInferCore> mask_points_decoder_core,
+                           std::shared_ptr<BaseInferCore> mask_boxes_decoder_core)
     : model_name_(model_name),
       image_encoder_core_(image_encoder_core),
       mask_points_decoder_core_(mask_points_decoder_core),
@@ -320,4 +320,4 @@ std::future<cv::Mat> BaseSamModel::GenerateMaskAsync(const cv::Mat             &
   return BaseAsyncPipeline::PushPipeline(box_pipeline_name_, package);
 }
 
-} // namespace sam
+} // namespace easy_deploy

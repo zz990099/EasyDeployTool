@@ -13,7 +13,7 @@
 #include <optional>
 #include <queue>
 
-namespace deploy_core {
+namespace easy_deploy {
 
 /**
  * @brief A simple implementation of block queue.
@@ -297,6 +297,6 @@ void BlockQueue<T>::SetNoMoreInput() noexcept
   consumer_cv_.notify_all();
 }
 
-} // namespace deploy_core
+} // namespace easy_deploy
 
 #endif

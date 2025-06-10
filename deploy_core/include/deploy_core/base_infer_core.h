@@ -16,7 +16,7 @@
 #include "deploy_core/block_queue.h"
 #include "deploy_core/async_pipeline.h"
 
-namespace inference_core {
+namespace easy_deploy {
 
 enum InferCoreType { ONNXRUNTIME, TENSORRT, RKNN, NOT_PROVIDED };
 
@@ -70,7 +70,7 @@ protected:
    * @return true
    * @return false
    */
-  virtual bool PreProcess(std::shared_ptr<async_pipeline::IPipelinePackage> buffer) = 0;
+  virtual bool PreProcess(std::shared_ptr<IPipelinePackage> buffer) = 0;
 
   /**
    * @brief `Inference` stage of the inference process. Return false if something went wrong
@@ -80,7 +80,7 @@ protected:
    * @return true
    * @return false
    */
-  virtual bool Inference(std::shared_ptr<async_pipeline::IPipelinePackage> buffer) = 0;
+  virtual bool Inference(std::shared_ptr<IPipelinePackage> buffer) = 0;
 
   /**
    * @brief `PostProcess` stage of the inference process. Return false if something went wrong
@@ -90,11 +90,11 @@ protected:
    * @return true
    * @return false
    */
-  virtual bool PostProcess(std::shared_ptr<async_pipeline::IPipelinePackage> buffer) = 0;
+  virtual bool PostProcess(std::shared_ptr<IPipelinePackage> buffer) = 0;
 };
 
 /**
- * @brief A simple implementation of mem buffer pool. Using `deploy_core::BlockQueue` to deploy a
+ * @brief A simple implementation of mem buffer pool. Using `BlockQueue` to deploy a
  * producer- consumer model. It will allocate buffer using `AllocBlobsBuffer` method of
  * `IRotInferCore` and provides `BlobsTensor` ptr when `Alloc` method is called. The "Alloced"
  * buffer will return back to mem buffer pool while the customed deconstruction method of shared_ptr
@@ -147,7 +147,7 @@ public:
 
 private:
   const size_t                                     pool_size_;
-  deploy_core::BlockQueue<BlobsTensor *>           dynamic_pool_;
+  BlockQueue<BlobsTensor *>           dynamic_pool_;
   std::unordered_set<std::unique_ptr<BlobsTensor>> static_pool_;
 };
 
@@ -158,7 +158,7 @@ private:
  */
 class _DummyInferCoreGenReulstType {
 public:
-  bool operator()(const std::shared_ptr<async_pipeline::IPipelinePackage> & /*package*/)
+  bool operator()(const std::shared_ptr<IPipelinePackage> & /*package*/)
   {
     return true;
   }
@@ -178,10 +178,10 @@ public:
  */
 class BaseInferCore
     : public IRotInferCore,
-      protected async_pipeline::BaseAsyncPipeline<bool, _DummyInferCoreGenReulstType> {
+      protected BaseAsyncPipeline<bool, _DummyInferCoreGenReulstType> {
 protected:
   BaseInferCore();
-  typedef std::shared_ptr<async_pipeline::IPipelinePackage> ParsingType;
+  typedef std::shared_ptr<IPipelinePackage> ParsingType;
 
 public:
   using BaseAsyncPipeline::GetPipelineContext;
@@ -242,9 +242,9 @@ private:
  */
 class BaseInferCoreFactory {
 public:
-  virtual std::shared_ptr<inference_core::BaseInferCore> Create() = 0;
+  virtual std::shared_ptr<BaseInferCore> Create() = 0;
 };
 
-} // namespace inference_core
+} // namespace easy_deploy
 
 #endif

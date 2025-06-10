@@ -14,7 +14,7 @@
 
 #include "trt_blob_buffer.hpp"
 
-namespace inference_core {
+namespace easy_deploy {
 
 class TensorrtLogger : public nvinfer1::ILogger {
 public:
@@ -88,7 +88,7 @@ public:
    * @return true
    * @return false
    */
-  bool PreProcess(std::shared_ptr<async_pipeline::IPipelinePackage> buffer) override;
+  bool PreProcess(std::shared_ptr<IPipelinePackage> buffer) override;
 
   /**
    * @brief Overrided from `BaseInferCore`. The `Inference` stage of tensorrt inference.
@@ -97,7 +97,7 @@ public:
    * @return true
    * @return false
    */
-  bool Inference(std::shared_ptr<async_pipeline::IPipelinePackage> buffer) override;
+  bool Inference(std::shared_ptr<IPipelinePackage> buffer) override;
 
   /**
    * @brief Overrided from `BaseInferCore`. The `PostProcess` stage of tensorrt inference.
@@ -107,7 +107,7 @@ public:
    * @return true
    * @return false
    */
-  bool PostProcess(std::shared_ptr<async_pipeline::IPipelinePackage> buffer) override;
+  bool PostProcess(std::shared_ptr<IPipelinePackage> buffer) override;
 
   ~TrtInferCore() override;
 
@@ -128,7 +128,8 @@ private:
 
 private:
   // some members related to tensorrt
-  TensorrtLogger                         logger_{};
+  static TensorrtLogger logger_;
+
   std::unique_ptr<nvinfer1::IRuntime>    runtime_{nullptr};
   std::unique_ptr<nvinfer1::ICudaEngine> engine_{nullptr};
 
@@ -148,6 +149,8 @@ private:
   // some model information mapping
   std::unordered_map<std::string, std::vector<size_t>> map_blob_name2shape_;
 };
+
+TensorrtLogger TrtInferCore::logger_ {};
 
 TrtInferCore::TrtInferCore(std::string engine_path, const int mem_buf_size)
 {
@@ -290,7 +293,7 @@ std::unique_ptr<BlobsTensor> TrtInferCore::AllocBlobsBuffer()
   return std::make_unique<BlobsTensor>(std::move(tensor_map));
 }
 
-bool TrtInferCore::PreProcess(std::shared_ptr<async_pipeline::IPipelinePackage> pipeline_unit)
+bool TrtInferCore::PreProcess(std::shared_ptr<IPipelinePackage> pipeline_unit)
 {
   CHECK_STATE(pipeline_unit != nullptr, "[TrtInferCore] PreProcess got invalid pipeline_unit!");
   auto blobs_tensor = pipeline_unit->GetInferBuffer();
@@ -318,7 +321,7 @@ bool TrtInferCore::PreProcess(std::shared_ptr<async_pipeline::IPipelinePackage> 
   return true;
 }
 
-bool TrtInferCore::Inference(std::shared_ptr<async_pipeline::IPipelinePackage> pipeline_unit)
+bool TrtInferCore::Inference(std::shared_ptr<IPipelinePackage> pipeline_unit)
 {
   // Create tensorrt context if this is the first time execution of this thread.
   std::thread::id cur_thread_id = std::this_thread::get_id();
@@ -369,7 +372,7 @@ bool TrtInferCore::Inference(std::shared_ptr<async_pipeline::IPipelinePackage> p
   return true;
 }
 
-bool TrtInferCore::PostProcess(std::shared_ptr<async_pipeline::IPipelinePackage> pipeline_unit)
+bool TrtInferCore::PostProcess(std::shared_ptr<IPipelinePackage> pipeline_unit)
 {
   CHECK_STATE(pipeline_unit != nullptr, "[TrtInferCore] PostProcess got invalid pipeline_unit!");
   auto blobs_tensor = pipeline_unit->GetInferBuffer();
@@ -443,4 +446,4 @@ std::shared_ptr<BaseInferCore> CreateTrtInferCore(
   return std::make_shared<TrtInferCore>(model_path, blobs_shape, mem_buf_size);
 }
 
-} // namespace inference_core
+} // namespace easy_deploy

@@ -7,7 +7,7 @@
  */
 #include "detection_2d_util/detection_2d_util.h"
 
-namespace detection_2d {
+namespace easy_deploy {
 
 static void DetectionNmsProcess(std::vector<BBox2D> &candidates, std::vector<int> &picked_idxes)
 {
@@ -488,4 +488,4 @@ std::shared_ptr<BaseDetectionPostprocessFactory> CreateYolov8PostProcessCpuDivid
   return std::make_shared<Detection2DYolov8PostprocessDivideFactory>(params);
 }
 
-} // namespace detection_2d
+} // namespace easy_deploy

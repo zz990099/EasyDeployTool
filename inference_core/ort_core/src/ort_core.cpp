@@ -4,7 +4,7 @@
 
 #include "ort_blob_buffer.hpp"
 
-namespace inference_core {
+namespace easy_deploy {
 
 enum BlobType { kINPUT = 0, kOUTPUT = 1 };
 
@@ -39,11 +39,11 @@ public:
   }
 
 private:
-  bool PreProcess(std::shared_ptr<async_pipeline::IPipelinePackage> buffer) override;
+  bool PreProcess(std::shared_ptr<IPipelinePackage> buffer) override;
 
-  bool Inference(std::shared_ptr<async_pipeline::IPipelinePackage> buffer) override;
+  bool Inference(std::shared_ptr<IPipelinePackage> buffer) override;
 
-  bool PostProcess(std::shared_ptr<async_pipeline::IPipelinePackage> buffer) override;
+  bool PostProcess(std::shared_ptr<IPipelinePackage> buffer) override;
 
 private:
   std::unordered_map<std::string, std::vector<uint64_t>> ResolveModelInputInformation();
@@ -248,12 +248,12 @@ std::unique_ptr<BlobsTensor> OrtInferCore::AllocBlobsBuffer()
   return std::make_unique<BlobsTensor>(std::move(tensor_map));
 }
 
-bool OrtInferCore::PreProcess(std::shared_ptr<async_pipeline::IPipelinePackage> pipeline_unit)
+bool OrtInferCore::PreProcess(std::shared_ptr<IPipelinePackage> pipeline_unit)
 {
   return true;
 }
 
-bool OrtInferCore::Inference(std::shared_ptr<async_pipeline::IPipelinePackage> pipeline_unit)
+bool OrtInferCore::Inference(std::shared_ptr<IPipelinePackage> pipeline_unit)
 {
   // 获取内存缓存
   CHECK_STATE(pipeline_unit != nullptr, "[ort_core] Inference got invalid pipeline_unit!");
@@ -304,7 +304,7 @@ bool OrtInferCore::Inference(std::shared_ptr<async_pipeline::IPipelinePackage> p
   return true;
 }
 
-bool OrtInferCore::PostProcess(std::shared_ptr<async_pipeline::IPipelinePackage> buffer)
+bool OrtInferCore::PostProcess(std::shared_ptr<IPipelinePackage> buffer)
 {
   return true;
 }
@@ -319,4 +319,4 @@ std::shared_ptr<BaseInferCore> CreateOrtInferCore(
                                         num_threads);
 }
 
-} // namespace inference_core
+} // namespace easy_deploy

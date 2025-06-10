@@ -10,7 +10,7 @@
 
 #include "deploy_core/base_infer_core.h"
 
-namespace inference_core {
+namespace easy_deploy {
 
 enum RknnInputTensorType {
   RK_UINT8,
@@ -34,6 +34,6 @@ std::shared_ptr<BaseInferCoreFactory> CreateRknnInferCoreFactory(
     const int                                                   mem_buf_size     = 5,
     const int                                                   parallel_ctx_num = 1);
 
-} // namespace inference_core
+} // namespace easy_deploy
 
 #endif

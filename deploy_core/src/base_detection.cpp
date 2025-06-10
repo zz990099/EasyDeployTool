@@ -9,7 +9,7 @@
 
 #include "deploy_core/wrapper.h"
 
-namespace detection_2d {
+namespace easy_deploy {
 
 std::string BaseDetectionModel::detection_pipeline_name_ = "DetectionPipeline";
 
@@ -26,7 +26,7 @@ static std::shared_ptr<DetectionPipelinePackage> CreateDetectionPipelineUnit(
     const cv::Mat                               &input_image,
     float                                        conf_thresh,
     bool                                         isRGB,
-    std::shared_ptr<inference_core::BlobsTensor> blob_buffers)
+    std::shared_ptr<BlobsTensor> blob_buffers)
 {
   // 1. construct the image wrapper
   auto image_wrapper = std::make_shared<PipelineCvImageWrapper>(input_image, isRGB);
@@ -39,7 +39,7 @@ static std::shared_ptr<DetectionPipelinePackage> CreateDetectionPipelineUnit(
   return package;
 }
 
-BaseDetectionModel::BaseDetectionModel(std::shared_ptr<inference_core::BaseInferCore> infer_core)
+BaseDetectionModel::BaseDetectionModel(std::shared_ptr<BaseInferCore> infer_core)
     : infer_core_(infer_core)
 {
   // 1. check infer_core
@@ -128,4 +128,4 @@ BaseDetectionModel::~BaseDetectionModel()
   infer_core_->Release();
 }
 
-} // namespace detection_2d
+} // namespace easy_deploy

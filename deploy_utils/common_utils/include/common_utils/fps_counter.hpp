@@ -3,7 +3,7 @@
 #include <chrono>
 #include "common_utils/log.hpp"
 
-namespace common_utils {
+namespace easy_deploy {
 
 class FPSCounter {
 public:
@@ -59,4 +59,4 @@ private:
   std::chrono::high_resolution_clock::time_point start_time; // 开始时间
 };
 
-} // namespace common_utils
+} // namespace easy_deploy

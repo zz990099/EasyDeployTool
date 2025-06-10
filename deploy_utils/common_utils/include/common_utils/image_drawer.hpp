@@ -6,7 +6,7 @@
 
 #define DRAW_LINE_THICKNESS 2
 
-namespace common_utils {
+namespace easy_deploy {
 
 class ImageDrawHelper {
 public:
@@ -79,4 +79,4 @@ private:
   std::shared_ptr<cv::Mat> _image;
 };
 
-} // namespace common_utils
+} // namespace easy_deploy

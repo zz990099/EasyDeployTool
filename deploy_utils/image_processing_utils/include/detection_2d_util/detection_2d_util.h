@@ -12,7 +12,7 @@
 #include "deploy_core/base_detection.h"
 #include "deploy_core/base_infer_core.h"
 
-namespace detection_2d {
+namespace easy_deploy {
 
 /**
  * @brief Create a Cpu based Det Pre Process object
@@ -97,6 +97,6 @@ std::shared_ptr<BaseDetectionPostprocessFactory> CreateYolov8PostProcessCpuDivid
     const int               cls_number,
     const std::vector<int> &downsample_scales = {8, 16, 32});
 
-} // namespace detection_2d
+} // namespace easy_deploy
 
 #endif

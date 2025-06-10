@@ -17,7 +17,7 @@ extern "C" float CallCudaPreprocess(const uint8_t *src,
                                     int            dst_height,
                                     void          *unified_mem_buffer);
 
-namespace detection_2d {
+namespace easy_deploy {
 
 class DetPreProcessCUDA : public IDetectionPreProcess {
 public:
@@ -25,8 +25,8 @@ public:
                     const int max_src_width    = 1920,
                     const int max_src_channels = 3);
 
-  float Preprocess(std::shared_ptr<async_pipeline::IPipelineImageData> input_image_data,
-                   inference_core::ITensor                            *tensor,
+  float Preprocess(std::shared_ptr<IPipelineImageData> input_image_data,
+                   ITensor                            *tensor,
                    int                                                 dst_height,
                    int                                                 dst_width) override;
 
@@ -57,8 +57,8 @@ DetPreProcessCUDA::DetPreProcessCUDA(const int max_src_height,
 }
 
 float DetPreProcessCUDA::Preprocess(
-    std::shared_ptr<async_pipeline::IPipelineImageData> input_image_data,
-    inference_core::ITensor                            *tensor,
+    std::shared_ptr<IPipelineImageData> input_image_data,
+    ITensor                            *tensor,
     int                                                 dst_height,
     int                                                 dst_width)
 {
@@ -127,4 +127,4 @@ std::shared_ptr<BaseDetectionPreprocessFactory> CreateCudaDetPreProcessFactory(
   return std::make_shared<Detection2DPreprocessCudaFactory>(params);
 }
 
-} // namespace detection_2d
+} // namespace easy_deploy

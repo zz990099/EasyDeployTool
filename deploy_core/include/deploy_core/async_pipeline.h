@@ -21,7 +21,7 @@
 #include "deploy_core/blob_buffer.h"
 #include "deploy_core/block_queue.h"
 
-namespace async_pipeline {
+namespace easy_deploy {
 
 /**
  * @brief A abstract class of image data. Needed by pipeline processing. Useful when data is
@@ -56,9 +56,9 @@ public:
    * which will be used to deploy inference. Case the algorithm may need multiple inference
    * core and multiple blobs buffer to complete the whole processing.
    *
-   * @return inference_core::BlobsTensor*
+   * @return BlobsTensor*
    */
-  virtual inference_core::BlobsTensor *GetInferBuffer() = 0;
+  virtual BlobsTensor *GetInferBuffer() = 0;
 
 protected:
   virtual ~IPipelinePackage() = default;
@@ -235,6 +235,6 @@ private:
   GenResult                                            gen_result_from_package_;
 };
 
-} // namespace async_pipeline
+} // namespace easy_deploy
 
 #endif

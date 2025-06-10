@@ -14,11 +14,13 @@
 
 #include <unordered_map>
 
+namespace easy_deploy {
+
 /**
  * @brief A simple wrapper of cv::Mat. Used in pipeline.
  *
  */
-class PipelineCvImageWrapper : public async_pipeline::IPipelineImageData {
+class PipelineCvImageWrapper : public IPipelineImageData {
 public:
   PipelineCvImageWrapper(const cv::Mat &cv_image, bool isRGB = false) : inner_cv_image(cv_image)
   {
@@ -39,5 +41,7 @@ private:
   IPipelineImageData::ImageDataInfo image_data_info;
   const cv::Mat                     inner_cv_image;
 };
+
+} // namespace easy_deploy
 
 #endif

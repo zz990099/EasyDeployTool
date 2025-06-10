@@ -4,10 +4,9 @@
 
 #include <gtest/gtest.h>
 
-namespace test_utils {
+namespace easy_deploy {
 
-using namespace sam;
-using namespace common_utils;
+using namespace easy_deploy;
 
 void test_sam_algorithm_correctness_with_points(const std::shared_ptr<BaseSamModel>    &model,
                                                 const std::vector<std::pair<int, int>> &points,
@@ -119,4 +118,4 @@ void test_sam_algorithm_async_correctness_with_boxes(
   }
 }
 
-} // namespace test_utils
+} // namespace easy_deploy

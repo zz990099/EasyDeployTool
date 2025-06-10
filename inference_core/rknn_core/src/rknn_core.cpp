@@ -4,7 +4,7 @@
 
 #include <rknn_api.h>
 
-namespace inference_core {
+namespace easy_deploy {
 
 static std::unordered_map<RknnInputTensorType, rknn_tensor_type> map_type_my2rk{
     {RknnInputTensorType::RK_UINT8, RKNN_TENSOR_UINT8},
@@ -47,11 +47,11 @@ public:
   }
 
 private:
-  bool PreProcess(std::shared_ptr<async_pipeline::IPipelinePackage> buffer) override;
+  bool PreProcess(std::shared_ptr<IPipelinePackage> buffer) override;
 
-  bool Inference(std::shared_ptr<async_pipeline::IPipelinePackage> buffer) override;
+  bool Inference(std::shared_ptr<IPipelinePackage> buffer) override;
 
-  bool PostProcess(std::shared_ptr<async_pipeline::IPipelinePackage> buffer) override;
+  bool PostProcess(std::shared_ptr<IPipelinePackage> buffer) override;
 
 private:
   std::unique_ptr<BlobsTensor> AllocBlobsBuffer() override;
@@ -63,8 +63,8 @@ private:
 
 private:
   std::vector<rknn_context>                  rknn_ctx_parallel_;
-  deploy_core::BlockQueue<rknn_context>      bq_ctx_;
-  deploy_core::BlockQueue<std::future<bool>> bq_async_future_;
+  BlockQueue<rknn_context>      bq_ctx_;
+  BlockQueue<std::future<bool>> bq_async_future_;
 
   //
   size_t blob_input_number_;
@@ -282,7 +282,7 @@ void RknnInferCore::ResolveModelInformation(
   }
 }
 
-bool RknnInferCore::PreProcess(std::shared_ptr<async_pipeline::IPipelinePackage> pipeline_unit)
+bool RknnInferCore::PreProcess(std::shared_ptr<IPipelinePackage> pipeline_unit)
 {
   CHECK_STATE(pipeline_unit != nullptr, "[rknn_core] Inference got invalid pipeline_unit!");
   auto blobs_tensor = pipeline_unit->GetInferBuffer();
@@ -339,7 +339,7 @@ bool RknnInferCore::PreProcess(std::shared_ptr<async_pipeline::IPipelinePackage>
     }                                 \
   }
 
-bool RknnInferCore::Inference(std::shared_ptr<async_pipeline::IPipelinePackage> pipeline_unit)
+bool RknnInferCore::Inference(std::shared_ptr<IPipelinePackage> pipeline_unit)
 {
   auto future = bq_async_future_.Take();
   CHECK_STATE(future.has_value(), "[rknn_core] Failed to valid future !!!");
@@ -348,7 +348,7 @@ bool RknnInferCore::Inference(std::shared_ptr<async_pipeline::IPipelinePackage> 
   return true;
 }
 
-bool RknnInferCore::PostProcess(std::shared_ptr<async_pipeline::IPipelinePackage> buffer)
+bool RknnInferCore::PostProcess(std::shared_ptr<IPipelinePackage> buffer)
 {
   return true;
 }
@@ -362,4 +362,4 @@ std::shared_ptr<BaseInferCore> CreateRknnInferCore(
   return std::make_shared<RknnInferCore>(model_path, map_blob_type, mem_buf_size, parallel_ctx_num);
 }
 
-} // namespace inference_core
+} // namespace easy_deploy

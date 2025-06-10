@@ -5,7 +5,7 @@
 #include <onnxruntime_cxx_api.h>
 #include "deploy_core/blob_buffer.h"
 
-namespace inference_core {
+namespace easy_deploy {
 
 template <typename Type>
 inline Type CumVector(const std::vector<Type> &vec)
@@ -143,4 +143,4 @@ public:
   std::unique_ptr<u_char[]> self_maintain_buffer_host_{nullptr};
 };
 
-} // namespace inference_core
+} // namespace easy_deploy

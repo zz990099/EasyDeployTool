@@ -10,6 +10,8 @@
 
 #include "common_utils/log.hpp"
 
+namespace easy_deploy {
+
 /**
  * @brief Defination of common 2D bounding box
  *
@@ -61,7 +63,7 @@ enum ImageDataFormat { YUV = 0, RGB = 1, BGR = 2, GRAY = 3 };
     {                                                                  \
       LOG_ERROR(fmt, ##__VA_ARGS__);                                   \
       char _msg[1024];                                                 \
-      common_utils::FormatMsg(_msg, sizeof(_msg), fmt, ##__VA_ARGS__); \
+      FormatMsg(_msg, sizeof(_msg), fmt, ##__VA_ARGS__); \
       throw std::runtime_error(_msg);                                  \
     }                                                                  \
   }
@@ -83,5 +85,7 @@ enum ImageDataFormat { YUV = 0, RGB = 1, BGR = 2, GRAY = 3 };
     LOG_DEBUG("%s cost(us): %ld", #run,                                                    \
               std::chrono::duration_cast<std::chrono::microseconds>(end - start).count()); \
   }
+
+} // namespace easy_deploy
 
 #endif

@@ -7,7 +7,7 @@
  */
 #include "detection_2d_util/detection_2d_util.h"
 
-namespace detection_2d {
+namespace easy_deploy {
 
 class DetPreProcessCPU : public IDetectionPreProcess {
 public:
@@ -16,8 +16,8 @@ public:
                    bool                      do_transpose = true,
                    bool                      do_norm      = true);
 
-  float Preprocess(std::shared_ptr<async_pipeline::IPipelineImageData> input_image_data,
-                   inference_core::ITensor                            *tensor,
+  float Preprocess(std::shared_ptr<IPipelineImageData> input_image_data,
+                   ITensor                            *tensor,
                    int                                                 dst_height,
                    int                                                 dst_width) override;
 
@@ -40,8 +40,8 @@ DetPreProcessCPU::DetPreProcessCPU(const std::vector<float> &mean,
 {}
 
 float DetPreProcessCPU::Preprocess(
-    std::shared_ptr<async_pipeline::IPipelineImageData> input_image_data,
-    inference_core::ITensor                            *tensor,
+    std::shared_ptr<IPipelineImageData> input_image_data,
+    ITensor                            *tensor,
     int                                                 dst_height,
     int                                                 dst_width)
 {
@@ -245,4 +245,4 @@ std::shared_ptr<BaseDetectionPreprocessFactory> CreateCpuDetPreProcessFactory(
   return std::make_shared<Detection2DPreprocessCpuFactory>(params);
 }
 
-} // namespace detection_2d
+} // namespace easy_deploy

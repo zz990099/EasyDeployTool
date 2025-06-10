@@ -7,10 +7,10 @@
  */
 #include "deploy_core/base_infer_core.h"
 
-namespace inference_core {
+namespace easy_deploy {
 
 // used in sync infer
-struct _InnerSyncInferPackage : public async_pipeline::IPipelinePackage {
+struct _InnerSyncInferPackage : public IPipelinePackage {
 public:
   BlobsTensor* GetInferBuffer() override
   {
@@ -67,4 +67,4 @@ BaseInferCore::~BaseInferCore()
   Release();
 }
 
-} // namespace inference_core
+} // namespace easy_deploy
