@@ -21,11 +21,11 @@ public:
   void log(Severity severity, const char *msg) noexcept override
   {
     if (severity == Severity::kINFO)
-      LOG(INFO) << "[Tensorrt] : " << msg;
+      LOG_DEBUG("[Tensorrt] : %s", msg);
     else if (severity == Severity::kERROR)
-      LOG(ERROR) << "[Tensorrt] : " << msg;
+      LOG_ERROR("[Tensorrt] : %s", msg);
     else if (severity == Severity::kWARNING)
-      LOG(WARNING) << "[Tensorrt] : " << msg;
+      LOG_WARN("[Tensorrt] : %s", msg);
   }
 };
 
@@ -210,16 +210,14 @@ void TrtInferCore::LoadEngine(const std::string &engine_path)
   {
     throw std::runtime_error("[TrtInferCore] Failed to create trt engine!!!");
   }
-  LOG(INFO) << "[TrtInferCore] created tensorrt engine and "
-               "context ! ";
+  LOG_DEBUG("[TrtInferCore] created tensorrt engine and context ! ");
 }
 
 void TrtInferCore::ResolveModelInformation(
     std::unordered_map<std::string, std::vector<uint64_t>> &blobs_shape)
 {
   const int blob_number = engine_->getNbIOTensors();
-  LOG(INFO) << "[TrtInferCore] model has " << blob_number << " blobs";
-  CHECK(blob_number >= 2);
+  LOG_DEBUG("[TrtInferCore] model has {%d} blobs", blob_number);
 
   bool resolve_blob_shape = blobs_shape.empty();
 
@@ -249,7 +247,7 @@ void TrtInferCore::ResolveModelInformation(
       {
         s_dim += std::to_string(d) + " ";
       }
-      LOG(INFO) << "[TrtInferCore] blob name : " << blob_name << " dims : " << s_dim;
+      LOG_DEBUG("[TrtInferCore] blob name : %s, dims : %s", blob_name, s_dim.c_str());
     }
   }
 }
@@ -269,8 +267,7 @@ std::unique_ptr<BlobsTensor> TrtInferCore::AllocBlobsBuffer()
     auto              tensor_data_type = engine_->getTensorDataType(s_blob_name.c_str());
     CHECK_STATE_THROW(
         map_tensor_type_byte_size_.find(tensor_data_type) != map_tensor_type_byte_size_.end(),
-        "[trt_core] Got unknown tensor data type: " +
-            std::to_string(static_cast<int32_t>(tensor_data_type)));
+        "[trt_core] Got unknown tensor data type: %d", static_cast<int32_t>(tensor_data_type));
     size_t blob_byte_size = map_tensor_type_byte_size_.at(tensor_data_type) * CumVector(blob_shape);
 
     tensor->current_shape_         = blob_shape;
@@ -306,7 +303,8 @@ bool TrtInferCore::PreProcess(std::shared_ptr<async_pipeline::IPipelinePackage> 
     const std::string s_blob_name = engine_->getIOTensorName(i);
 
     auto tensor = dynamic_cast<TrtTensor *>(blobs_tensor->GetTensor(s_blob_name));
-    CHECK_STATE(tensor != nullptr, "[trt_core] PreProcess got invalid tensor : " + s_blob_name);
+    CHECK_STATE(tensor != nullptr, "[trt_core] PreProcess got invalid tensor : %s",
+                s_blob_name.c_str());
 
     if (tensor->current_location_ == DataLocation::HOST &&
         engine_->getTensorIOMode(s_blob_name.c_str()) == nvinfer1::TensorIOMode::kINPUT)
@@ -346,7 +344,8 @@ bool TrtInferCore::Inference(std::shared_ptr<async_pipeline::IPipelinePackage> p
     const std::string s_blob_name = engine_->getIOTensorName(i);
 
     auto tensor = dynamic_cast<TrtTensor *>(blobs_tensor->GetTensor(s_blob_name));
-    CHECK_STATE(tensor != nullptr, "[trt_core] Inference got invalid tensor : " + s_blob_name);
+    CHECK_STATE(tensor != nullptr, "[trt_core] Inference got invalid tensor : %s",
+                s_blob_name.c_str());
 
     context->setTensorAddress(s_blob_name.c_str(), tensor->buffer_on_device_);
 
@@ -383,7 +382,8 @@ bool TrtInferCore::PostProcess(std::shared_ptr<async_pipeline::IPipelinePackage>
     const std::string s_blob_name = engine_->getIOTensorName(i);
 
     auto tensor = dynamic_cast<TrtTensor *>(blobs_tensor->GetTensor(s_blob_name));
-    CHECK_STATE(tensor != nullptr, "[trt_core] PostProcess got invalid tensor : " + s_blob_name);
+    CHECK_STATE(tensor != nullptr, "[trt_core] PostProcess got invalid tensor : %s",
+                s_blob_name.c_str());
 
     if (engine_->getTensorIOMode(s_blob_name.c_str()) == nvinfer1::TensorIOMode::kINPUT)
       continue;

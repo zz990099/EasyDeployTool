@@ -14,7 +14,7 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 
 find_package(CUDA REQUIRED)
-find_package(glog REQUIRED)
+
 
 set(source_file src/trt_core.cpp
                 src/trt_core_factory.cpp)

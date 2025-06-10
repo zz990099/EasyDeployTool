@@ -6,7 +6,6 @@ add_compile_options(-O3)
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(OpenCV REQUIRED)
-find_package(glog REQUIRED)
 
 set(source_file
     src/detection_2d_test_utils.cpp
@@ -21,7 +20,6 @@ include_directories(
 add_library(${PROJECT_NAME} SHARED ${source_file})
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
-  glog::glog
   ${OpenCV_LIBS}
   deploy_core
   common_utils

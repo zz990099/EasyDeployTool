@@ -6,7 +6,7 @@ add_compile_options(-O3)
 set(CMAKE_CXX_STANDARD 17)
 
 set(source_file
-  src/dummy.cpp
+  src/log.cpp
 )
 
 include_directories(
@@ -15,8 +15,14 @@ include_directories(
 
 add_library(${PROJECT_NAME} SHARED ${source_file})
 
+target_link_libraries(${PROJECT_NAME} PUBLIC
+)
 
 install(TARGETS ${PROJECT_NAME}
         LIBRARY DESTINATION lib)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
+if (ENABLE_DEBUG_OUTPUT)
+  target_compile_definitions(${PROJECT_NAME} PUBLIC ENABLE_DEBUG_OUTPUT)
+endif()

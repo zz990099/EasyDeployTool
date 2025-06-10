@@ -14,8 +14,8 @@
 #include <thread>
 #include <unordered_map>
 
-#include <glog/logging.h>
-#include <glog/log_severity.h>
+
+
 
 #include "deploy_core/async_pipeline_impl.h"
 #include "deploy_core/blob_buffer.h"
@@ -148,15 +148,13 @@ public:
   {
     if (map_name2instance_.find(pipeline_name) == map_name2instance_.end())
     {
-      LOG(ERROR) << "[BaseAsyncPipeline] `PushPipeline` pipeline {" << pipeline_name
-                 << "} is not valid !!!";
+      LOG_ERROR("[BaseAsyncPipeline] `PushPipeline` pipeline {%s} is not valid !!!", pipeline_name.c_str());
       return std::future<ResultType>();
     }
 
     if (!map_name2instance_.at(pipeline_name).IsInitialized())
     {
-      LOG(ERROR) << "[BaseAsyncPipeline] `PushPipeline` pipeline {" << pipeline_name
-                 << "} is not initilized !!!";
+      LOG_ERROR("[BaseAsyncPipeline] `PushPipeline` pipeline {%s} is not initilized !!!", pipeline_name.c_str());;
       return std::future<ResultType>();
     }
 

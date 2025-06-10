@@ -66,10 +66,6 @@ struct DetectionPipelinePackage : public async_pipeline::IPipelinePackage {
   // override from `IPipelinePakcage`, to provide the blobs buffer to inference_core
   inference_core::BlobsTensor *GetInferBuffer() override
   {
-    if (infer_buffer == nullptr)
-    {
-      LOG(ERROR) << "[DetectionPipelinePackage] returned nullptr of infer_buffer!!!";
-    }
     return infer_buffer.get();
   }
 };
@@ -123,7 +119,7 @@ public:
     auto detection_package = std::dynamic_pointer_cast<DetectionPipelinePackage>(package);
     if (detection_package == nullptr)
     {
-      LOG(ERROR) << "[DetectionGenResult] Got INVALID package ptr!!!";
+      LOG_ERROR("[DetectionGenResult] Got INVALID package ptr!!!");
       return {};
     }
     return std::move(detection_package->results);

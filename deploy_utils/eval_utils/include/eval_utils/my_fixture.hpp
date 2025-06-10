@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include <gflags/gflags.h>
-#include <glog/logging.h>
+
 
 namespace eval_utils {
 

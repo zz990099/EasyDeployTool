@@ -96,7 +96,7 @@ RknnInferCore::RknnInferCore(
   {
     throw std::runtime_error("[rknn_core] Failed to read model from file: " + model_path);
   }
-  LOG(INFO) << "[rknn core] initilize using " << parallel_ctx_num << " ctx instances";
+  LOG_DEBUG("[rknn core] initilize using {%d} ctx instances", parallel_ctx_num);
 
   for (int i = 0; i < parallel_ctx_num; ++i)
   {
@@ -152,13 +152,13 @@ RknnInferCore::~RknnInferCore()
     auto ctx_value = bq_ctx_.Take();
     if (!ctx_value.has_value())
     {
-      LOG(ERROR) << "[rknn_core] Failed to get ctx from block queue!!!";
+      LOG_ERROR("[rknn_core] Failed to get ctx from block queue!!!");
       continue;
     }
     auto ctx = ctx_value.value();
     if (rknn_destroy(ctx) != RKNN_SUCC)
     {
-      LOG(ERROR) << "[rknn_core] In deconstructor destroy rknn ctx failed!!!";
+      LOG_ERROR("[rknn_core] In deconstructor destroy rknn ctx failed!!!");
     }
   }
 }
@@ -212,8 +212,8 @@ void RknnInferCore::ResolveModelInformation(
   {
     throw std::runtime_error("[rknn core] Failed to execute in_out_num `rknn_query`");
   }
-  LOG(INFO) << "model input blob num: " << rknn_io_num.n_input
-            << "\toutput blob num: " << rknn_io_num.n_output;
+  LOG_DEBUG("model input blob num: %ld \toutput blob num: %ld", rknn_io_num.n_input,
+            rknn_io_num.n_output);
 
   blob_input_number_  = rknn_io_num.n_input;
   blob_output_number_ = rknn_io_num.n_output;
@@ -239,9 +239,8 @@ void RknnInferCore::ResolveModelInformation(
 
     if (map_rknn_type2size_.find(blob_attr_input_[i].type) == map_rknn_type2size_.end())
     {
-      LOG(ERROR) << "[rknn core] blob_name: " << s_blob_name
-                 << ", blob_type : " << blob_attr_input_[i].type
-                 << " NOT FOUND in `map_rknn_type2size_`";
+      LOG_ERROR("[rknn_core] blob_name : %s, blob_type: %d, NOT found in `map_rknn_type2size_`!",
+                s_blob_name.c_str(), blob_attr_input_[i].type);
       throw std::runtime_error("[rknn core] Failed to resolve model information!!!");
     }
     const int blob_type_byte_size = map_rknn_type2size_[blob_attr_input_[i].type];
@@ -253,9 +252,9 @@ void RknnInferCore::ResolveModelInformation(
       s_blob_info += "\t" + std::to_string(blob_attr_input_[i].dims[j]);
       blob_shape.push_back(blob_attr_input_[i].dims[j]);
     }
-    LOG(INFO) << s_blob_info;
-    LOG(INFO) << "blob fmt: " << get_format_string(blob_attr_input_[i].fmt)
-              << ",  type: " << get_type_string(blob_attr_input_[i].type);
+    LOG_DEBUG(s_blob_info.c_str());
+    LOG_DEBUG("blob fmt: %s, type: %s", get_format_string(blob_attr_input_[i].fmt),
+              get_type_string(blob_attr_input_[i].type));
     map_input_blob_name2shape_[s_blob_name] = blob_shape;
   }
 
@@ -276,10 +275,9 @@ void RknnInferCore::ResolveModelInformation(
       s_blob_info += "\t" + std::to_string(blob_attr_output_[i].dims[j]);
       blob_shape.push_back(blob_attr_output_[i].dims[j]);
     }
-    LOG(INFO) << s_blob_info;
-    LOG(INFO) << "blob fmt: " << blob_attr_output_[i].fmt
-              << ",  type: " << get_type_string(blob_attr_output_[i].type);
-
+    LOG_DEBUG(s_blob_info.c_str());
+    LOG_DEBUG("blob fmt: %s, type: %s", get_format_string(blob_attr_output_[i].fmt),
+              get_type_string(blob_attr_output_[i].type));
     map_output_blob_name2shape_[s_blob_name] = blob_shape;
   }
 }
@@ -312,13 +310,11 @@ bool RknnInferCore::PreProcess(std::shared_ptr<async_pipeline::IPipelinePackage>
       outputs[i].want_float  = true;
     }
 
-    CHECK_STATE(
-        rknn_inputs_set(ctx, blob_input_number_, inputs.data()) == RKNN_SUCC,
-        "[rknn core] Inference `rknn_inputs_set` execute failed!!!");
+    CHECK_STATE(rknn_inputs_set(ctx, blob_input_number_, inputs.data()) == RKNN_SUCC,
+                "[rknn core] Inference `rknn_inputs_set` execute failed!!!");
     CHECK_STATE(rknn_run(ctx, nullptr) == RKNN_SUCC,
                 "[rknn core] Inference `rknn_run` execute failed!!!");
-    CHECK_STATE(rknn_outputs_get(ctx, blob_output_number_, outputs.data(),
-                                 nullptr) == RKNN_SUCC,
+    CHECK_STATE(rknn_outputs_get(ctx, blob_output_number_, outputs.data(), nullptr) == RKNN_SUCC,
                 "[rknn core] Inference `rknn_outputs_get` execute failed!!!");
 
     bq_ctx_.BlockPush(ctx);
@@ -337,7 +333,7 @@ bool RknnInferCore::PreProcess(std::shared_ptr<async_pipeline::IPipelinePackage>
   {                                   \
     if (!(state))                     \
     {                                 \
-      LOG(ERROR) << (hint);           \
+      LOG_ERROR((hint));              \
       bq_ctx_.BlockPush(index);       \
       return false;                   \
     }                                 \

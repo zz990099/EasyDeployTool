@@ -1,8 +1,7 @@
 #pragma once
 
 #include <chrono>
-#include <glog/logging.h>
-#include <glog/log_severity.h>
+#include "common_utils/log.hpp"
 
 namespace common_utils {
 
@@ -25,7 +24,7 @@ public:
   {
     if (!is_running)
     {
-      LOG(ERROR) << "Please call Start() before counting.";
+      LOG_ERROR("Please call Start() before counting.");
       return;
     }
     sum += i;
@@ -36,7 +35,7 @@ public:
   {
     if (!is_running)
     {
-      LOG(ERROR) << "Please call Start() before calculating FPS.";
+      LOG_ERROR("Please call Start() before calculating FPS.");
       return 0.0;
     }
 

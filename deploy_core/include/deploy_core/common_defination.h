@@ -8,6 +8,8 @@
 #ifndef __EASY_DEPLOY_COMMON_DEFINATION_H
 #define __EASY_DEPLOY_COMMON_DEFINATION_H
 
+#include "common_utils/log.hpp"
+
 /**
  * @brief Defination of common 2D bounding box
  *
@@ -44,40 +46,42 @@ enum DataLocation { HOST = 0, DEVICE = 1, UNKOWN = 2 };
 enum ImageDataFormat { YUV = 0, RGB = 1, BGR = 2, GRAY = 3 };
 
 // some macro
-#define CHECK_STATE(state, hint) \
-  {                              \
-    if (!(state))                \
-    {                            \
-      LOG(ERROR) << (hint);      \
-      return false;              \
-    }                            \
+#define CHECK_STATE(state, fmt, ...) \
+  {                                  \
+    if (!(state))                    \
+    {                                \
+      LOG_ERROR(fmt, ##__VA_ARGS__); \
+      return false;                  \
+    }                                \
   }
 
-#define CHECK_STATE_THROW(state, hint) \
-  {                                    \
-    if (!(state))                      \
-    {                                  \
-      LOG(ERROR) << (hint);            \
-      throw std::runtime_error(hint);  \
-    }                                  \
+#define CHECK_STATE_THROW(state, fmt, ...)                             \
+  {                                                                    \
+    if (!(state))                                                      \
+    {                                                                  \
+      LOG_ERROR(fmt, ##__VA_ARGS__);                                   \
+      char _msg[1024];                                                 \
+      common_utils::FormatMsg(_msg, sizeof(_msg), fmt, ##__VA_ARGS__); \
+      throw std::runtime_error(_msg);                                  \
+    }                                                                  \
   }
 
-#define MESSURE_DURATION(run)                                                                \
-  {                                                                                          \
-    auto start = std::chrono::high_resolution_clock::now();                                  \
-    (run);                                                                                   \
-    auto end = std::chrono::high_resolution_clock::now();                                    \
-    LOG(INFO) << #run << " cost(us): "                                                       \
-              << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count(); \
+#define MESSURE_DURATION(run)                                                              \
+  {                                                                                        \
+    auto start = std::chrono::high_resolution_clock::now();                                \
+    (run);                                                                                 \
+    auto end = std::chrono::high_resolution_clock::now();                                  \
+    LOG_DEBUG("%s cost(us): %ld", #run,                                                    \
+              std::chrono::duration_cast<std::chrono::microseconds>(end - start).count()); \
   }
 
-#define MESSURE_DURATION_AND_CHECK_STATE(run, hint)                                          \
-  {                                                                                          \
-    auto start = std::chrono::high_resolution_clock::now();                                  \
-    CHECK_STATE((run), hint);                                                                \
-    auto end = std::chrono::high_resolution_clock::now();                                    \
-    LOG(INFO) << #run << " cost(us): "                                                       \
-              << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count(); \
+#define MESSURE_DURATION_AND_CHECK_STATE(run, fmt, ...)                                    \
+  {                                                                                        \
+    auto start = std::chrono::high_resolution_clock::now();                                \
+    CHECK_STATE((run), fmt, ##__VA_ARGS__);                                                \
+    auto end = std::chrono::high_resolution_clock::now();                                  \
+    LOG_DEBUG("%s cost(us): %ld", #run,                                                    \
+              std::chrono::duration_cast<std::chrono::microseconds>(end - start).count()); \
   }
 
 #endif

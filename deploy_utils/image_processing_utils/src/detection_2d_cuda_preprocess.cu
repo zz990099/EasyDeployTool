@@ -5,8 +5,8 @@
  * @LastEditTime: 2024-11-26 21:47:33
  * @FilePath: /easy_deploy/deploy_utils/image_processing_utils/src/detection_2d_cuda_preprocess.cu
  */
-#include <glog/logging.h>
-#include <glog/log_severity.h>
+
+
 
 #include <opencv2/opencv.hpp>
 

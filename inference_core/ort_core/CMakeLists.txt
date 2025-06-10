@@ -5,7 +5,6 @@ add_compile_options(-std=c++17)
 add_compile_options(-O3 -Wextra -Wdeprecated -fPIC)
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(glog REQUIRED)
 
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
   message(STATUS "Building OnnxRuntime-Core on x86_64 platform ...")
@@ -35,7 +34,6 @@ add_library(${PROJECT_NAME} SHARED ${source_file})
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
   ${ONNXRUNTIME_LIBS}
-  glog::glog
   deploy_core
 )
 

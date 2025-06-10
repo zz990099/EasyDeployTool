@@ -33,10 +33,6 @@ struct StereoPipelinePackage : public async_pipeline::IPipelinePackage {
   // override from `IPipelinePakcage`, to provide the blobs buffer to inference_core
   inference_core::BlobsTensor *GetInferBuffer() override
   {
-    if (infer_buffer == nullptr)
-    {
-      LOG(ERROR) << "[DetectionPipelinePackage] returned nullptr of infer_buffer!!!";
-    }
     return infer_buffer.get();
   }
 };
@@ -52,7 +48,7 @@ public:
     auto stereo_package = std::dynamic_pointer_cast<StereoPipelinePackage>(package);
     if (stereo_package == nullptr)
     {
-      LOG(ERROR) << "[StereoGenResultType] Got INVALID package ptr!!!";
+      LOG_ERROR("[StereoGenResultType] Got INVALID package ptr!!!");
       return {};
     }
     return std::move(stereo_package->disp);
@@ -101,10 +97,6 @@ struct MonoStereoPipelinePackage : public async_pipeline::IPipelinePackage {
   // override from `IPipelinePakcage`, to provide the blobs buffer to inference_core
   inference_core::BlobsTensor *GetInferBuffer() override
   {
-    if (infer_buffer == nullptr)
-    {
-      LOG(ERROR) << "[MonoStereoPipelinePackage] returned nullptr of infer_buffer!!!";
-    }
     return infer_buffer.get();
   }
 };
@@ -120,7 +112,7 @@ public:
     auto stereo_package = std::dynamic_pointer_cast<MonoStereoPipelinePackage>(package);
     if (stereo_package == nullptr)
     {
-      LOG(ERROR) << "[MonoStereoGenResultType] Got INVALID package ptr!!!";
+      LOG_ERROR("[MonoStereoGenResultType] Got INVALID package ptr!!!");
       return {};
     }
     return std::move(stereo_package->depth);

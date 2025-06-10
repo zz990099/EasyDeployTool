@@ -130,7 +130,7 @@ public:
   {
     if (dynamic_pool_.Size() != pool_size_)
     {
-      LOG(WARNING) << "[MemBufPool] does not maintain all bufs when release func called!";
+      LOG_ERROR("[MemBufPool] does not maintain all bufs when release func called!");
     }
     static_pool_.clear();
   }

@@ -5,9 +5,7 @@ add_compile_options(-std=c++17)
 add_compile_options(-O3 -Wextra -Wdeprecated -fPIC)
 set(CMAKE_CXX_STANDARD 17)
 
-
 find_package(OpenCV REQUIRED)
-find_package(glog REQUIRED)
 
 include_directories(
   include
@@ -26,7 +24,7 @@ add_library(${PROJECT_NAME} SHARED ${source_file})
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
   ${OpenCV_LIBS}
-  glog::glog
+  common_utils
 )
 
 install(TARGETS ${PROJECT_NAME}

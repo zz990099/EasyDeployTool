@@ -345,8 +345,6 @@ void Yolov8PostProcessCPU_Divide::Postprocess(const std::vector<void *> &output_
                                               float                      conf_threshold,
                                               float                      transform_scale)
 {
-  // box, cls, cls_reduce
-  CHECK(output_blobs_ptr.size() == downsample_scales_.size() * 3);
   // generate candidates
   std::vector<BBox2D> candidates;
   GenerateCandidates(output_blobs_ptr, candidates, conf_threshold, transform_scale);

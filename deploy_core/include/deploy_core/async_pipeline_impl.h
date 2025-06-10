@@ -12,10 +12,9 @@
 #include <future>
 #include <vector>
 
-#include <glog/log_severity.h>
-#include <glog/logging.h>
-
 #include "deploy_core/block_queue.h"
+
+#include "deploy_core/common_defination.h"
 
 namespace async_pipeline {
 
@@ -179,7 +178,7 @@ public:
     // 1. for `n` blocks, construct `n+1` block queues
     const auto blocks = inner_context_.blocks_;
     const int  n      = blocks.size();
-    LOG(INFO) << "[AsyncPipelineInstance] Total {" << n << "} Pipeline Blocks";
+    LOG_DEBUG("[AsyncPipelineInstance] Total {%d} Pipeline Blocks", n);
     for (int i = 0; i < n + 1; ++i)
     {
       block_queue_.emplace_back(
@@ -204,21 +203,21 @@ public:
   {
     if (pipeline_initialized_)
     {
-      LOG(INFO) << "[AsyncPipelineInstance] Closing pipeline ...";
+      LOG_DEBUG("[AsyncPipelineInstance] Closing pipeline ...");
       for (const auto &bq : block_queue_)
       {
         bq->DisableAndClear();
       }
-      LOG(INFO) << "[AsyncPipelineInstance] Disabled all block queue ...";
+      LOG_DEBUG("[AsyncPipelineInstance] Disabled all block queue ...");
       pipeline_close_flag_.store(true);
 
       for (auto &future : async_futures_)
       {
         auto res = future.get();
       }
-      LOG(INFO) << "[AsyncPipelineInstance] Join all block queue ...";
+      LOG_DEBUG("[AsyncPipelineInstance] Join all block queue ...");
       block_queue_.clear();
-      LOG(INFO) << "[AsyncPipelineInstance] Async pipeline is released successfully!!";
+      LOG_DEBUG("[AsyncPipelineInstance] Async pipeline is released successfully!!");
       pipeline_initialized_ = false;
       pipeline_close_flag_.store(true);
       pipeline_no_more_input_.store(true);
@@ -258,7 +257,7 @@ private:
                          std::shared_ptr<deploy_core::BlockQueue<InnerParsingType>> bq_output,
                          const InnerBlock_t                                        &pipeline_block)
   {
-    LOG(INFO) << "[AsyncPipelineInstance] {" << pipeline_block.GetName() << "} thread start!";
+    LOG_DEBUG("[AsyncPipelineInstance] {%s} thread start!", pipeline_block.GetName().c_str());
     while (!pipeline_close_flag_)
     {
       auto data = bq_input->Take();
@@ -266,8 +265,8 @@ private:
       {
         if (pipeline_no_more_input_)
         {
-          LOG(INFO) << "[AsyncPipelineInstance] {" << pipeline_block.GetName()
-                    << "} set no more output ...";
+          LOG_DEBUG("[AsyncPipelineInstance] {%s} set no more output ...",
+                    pipeline_block.GetName().c_str());
           bq_output->SetNoMoreInput();
           break;
         } else
@@ -275,28 +274,33 @@ private:
           continue;
         }
       }
-      auto start  = std::chrono::high_resolution_clock::now();
-      bool status = pipeline_block(data.value());
-      auto end    = std::chrono::high_resolution_clock::now();
-      LOG(INFO) << "[AsyncPipelineInstance] {" << pipeline_block.GetName() << "} cost (us) : "
-                << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
 
-      if (!status)
+      try
       {
-        LOG(WARNING) << "[AsyncPipelineInstance] {" << pipeline_block.GetName()
-                     << "}, excute block function failed! Drop package.";
+        auto start = std::chrono::high_resolution_clock::now();
+        pipeline_block(data.value());
+        auto end = std::chrono::high_resolution_clock::now();
+        LOG_DEBUG("[AsyncPipelineInstance] Block name: {%s}, cost(us): %ld",
+                  pipeline_block.GetName().c_str(),
+                  std::chrono::duration_cast<std::chrono::microseconds>(end - start).count());
+      } catch (const std::exception &e)
+      {
+        LOG_ERROR(
+            "[AsyncPipelineInstance] {%s}, excute block function failed! Got exception : %s, Drop "
+            "package.",
+            pipeline_block.GetName().c_str(), e.what());
         continue;
       }
 
       bq_output->BlockPush(data.value());
     }
-    LOG(INFO) << "[AsyncPipelineInstance] {" << pipeline_block.GetName() << "} thread quit!";
+    LOG_DEBUG("[AsyncPipelineInstance] {%s} thread quit!", pipeline_block.GetName().c_str());
     return true;
   }
 
   bool ThreadOutputEntry(std::shared_ptr<deploy_core::BlockQueue<InnerParsingType>> bq_input)
   {
-    LOG(INFO) << "[AsyncPipelineInstance] {Output} thread start!";
+    LOG_DEBUG("[AsyncPipelineInstance] {Output} thread start!");
     while (!pipeline_close_flag_)
     {
       auto data = bq_input->Take();
@@ -304,7 +308,7 @@ private:
       {
         if (pipeline_no_more_input_)
         {
-          LOG(INFO) << "[AsyncPipelineInstance] {Output} set no more output ...";
+          LOG_DEBUG("[AsyncPipelineInstance] {Output} set no more output ...");
           break;
         } else
         {
@@ -317,11 +321,11 @@ private:
         inner_pack->callback(inner_pack->package);
       } else
       {
-        LOG(WARNING)
-            << "[AsyncPipelineInstance] {Output} package without valid callback will be dropped!!!";
+        LOG_WARN(
+            "[AsyncPipelineInstance] {Output} package without valid callback will be dropped!!!");
       }
     }
-    LOG(INFO) << "[AsyncPipelineInstance] {Output} thread quit!";
+    LOG_DEBUG("[AsyncPipelineInstance] {Output} thread quit!");
 
     return true;
   }

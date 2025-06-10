@@ -1,6 +1,7 @@
 #include "benchmark_utils/sam_benchmark_utils.hpp"
 
 #include <benchmark/benchmark.h>
+#include <glog/logging.h>
 
 namespace benchmark_utils {
 

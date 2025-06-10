@@ -13,7 +13,6 @@ if(ENABLE_TENSORRT)
 endif()
 
 find_package(OpenCV REQUIRED)
-find_package(glog REQUIRED)
 
 set(source_file
     src/detection_2d_preprocess_cpu.cpp
@@ -35,7 +34,6 @@ include_directories(
 add_library(${PROJECT_NAME} SHARED ${source_file})
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
-  glog::glog
   ${OpenCV_LIBS}
   deploy_core
 )

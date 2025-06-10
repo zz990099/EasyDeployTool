@@ -23,9 +23,9 @@ std::string BaseDetectionModel::detection_pipeline_name_ = "DetectionPipeline";
  * @return std::shared_ptr<DetectionPipelinePackage>
  */
 static std::shared_ptr<DetectionPipelinePackage> CreateDetectionPipelineUnit(
-    const cv::Mat                &input_image,
-    float                         conf_thresh,
-    bool                          isRGB,
+    const cv::Mat                               &input_image,
+    float                                        conf_thresh,
+    bool                                         isRGB,
     std::shared_ptr<inference_core::BlobsTensor> blob_buffers)
 {
   // 1. construct the image wrapper
@@ -70,7 +70,7 @@ bool BaseDetectionModel::Detect(const cv::Mat       &input_image,
   auto blobs_tensor = infer_core_->GetBuffer(false);
   if (blobs_tensor == nullptr)
   {
-    LOG(ERROR) << "[BaseDetectionModel] Inference Core run out buffer!!!";
+    LOG_ERROR("[BaseDetectionModel] Inference Core run out buffer!!!");
     return false;
   }
 
@@ -103,7 +103,7 @@ std::future<std::vector<BBox2D>> BaseDetectionModel::DetectAsync(const cv::Mat &
   // 1. check if the pipeline is initialized
   if (!IsPipelineInitialized(detection_pipeline_name_))
   {
-    LOG(ERROR) << "[BaseDetectionModel] Async Pipeline is not init yet!!!";
+    LOG_ERROR("[BaseDetectionModel] Async Pipeline is not init yet!!!");
     return std::future<std::vector<BBox2D>>();
   }
 
@@ -111,7 +111,7 @@ std::future<std::vector<BBox2D>> BaseDetectionModel::DetectAsync(const cv::Mat &
   auto blob_buffers = infer_core_->GetBuffer(true);
   if (blob_buffers == nullptr)
   {
-    LOG(ERROR) << "[BaseDetectionModel] Failed to get buffer from inference core!!!";
+    LOG_ERROR("[BaseDetectionModel] Failed to get buffer from inference core!!!");
     return std::future<std::vector<BBox2D>>();
   }
 
@@ -127,6 +127,5 @@ BaseDetectionModel::~BaseDetectionModel()
   ClosePipeline();
   infer_core_->Release();
 }
-
 
 } // namespace detection_2d

@@ -10,6 +10,7 @@
 
 #include <cuda_runtime.h>
 #include <assert.h>
+#include <cstring>
 
 #include "deploy_core/blob_buffer.h"
 
