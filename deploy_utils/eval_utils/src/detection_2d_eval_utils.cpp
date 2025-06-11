@@ -53,33 +53,52 @@ static void generate_coco_result(const std::shared_ptr<BaseDetectionModel> &mode
   std::cout << "Start inference on COCO2017-VAL dataset, dataset dir : " << coco_val_dir_path
             << "\r\nTotal images : " << valid_files.size() << std::endl;
 
-  size_t cur_idx = 0;
-  for (const auto &file : valid_files)
-  {
-    std::string img_file = file.string();
-    std::string img_name = file.filename().stem().string();
-    cv::Mat     img      = cv::imread(img_file);
-    if (img.empty())
-    {
-      std::cerr << "Failed to open image : " << img_file << std::endl;
-      continue;
-    }
-    std::vector<BBox2D> det_results;
+  BlockQueue<std::tuple<cv::Mat, fs::path>> bq(100);
 
-    bool ok = model->Detect(img, det_results, 0.001, false);
+  auto func_read_images = [&]() {
+    for (const auto &file : valid_files)
+    {
+      std::string img_file = file.string();
+      std::string img_name = file.filename().stem().string();
+      cv::Mat     img      = cv::imread(img_file);
+      if (img.empty())
+      {
+        std::cerr << "Failed to open image : " << img_file << std::endl;
+        continue;
+      }
+      bq.BlockPush(std::tuple<cv::Mat, fs::path>{img, file});
+    }
+    bq.SetNoMoreInput();
+  };
+
+  auto read_image_thread = std::thread(func_read_images);
+
+  size_t cur_idx = 0;
+  while (true) {
+    auto package = bq.Take();
+    if (!package.has_value()) {
+      break;
+    }
+
+    auto [image, file] = package.value();
+
+    std::vector<BBox2D> det_results;
+    bool ok = model->Detect(image, det_results, 0.001, false);
     if (!ok)
     {
-      std::cerr << "Failed to inference on image : " << img_file << std::endl;
+      std::cerr << "Failed to inference on image : " << file.string() << std::endl;
       continue;
     }
 
-    // 写出结果
-    std::string out_path = fs::path(save_result_tmp_path) / (img_name + ".json");
+    std::string out_path = fs::path(save_result_tmp_path) / (file.filename().stem().string() + ".json");
     WriteResultToJson(out_path, det_results);
 
     progress_bar(++cur_idx, valid_files.size());
   }
   std::cout << "\r\n";
+
+  bq.Disable();
+  read_image_thread.join();
 }
 
 static void eval_detection_result_with_python(const std::string &save_result_tmp_path,
