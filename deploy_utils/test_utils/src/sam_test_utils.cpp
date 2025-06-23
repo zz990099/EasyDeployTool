@@ -6,8 +6,6 @@
 
 namespace easy_deploy {
 
-using namespace easy_deploy;
-
 void test_sam_algorithm_correctness_with_points(const std::shared_ptr<BaseSamModel>    &model,
                                                 const std::vector<std::pair<int, int>> &points,
                                                 const std::vector<int>                 &labels,

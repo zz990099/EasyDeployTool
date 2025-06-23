@@ -12,6 +12,7 @@ find_package(benchmark REQUIRED)
 set(source_file
     src/detection_2d_benchmark_utils.cpp
     src/sam_benchmark_utils.cpp
+    src/stereo_matching_benchmark_utils.cpp
 )
 
 include_directories(

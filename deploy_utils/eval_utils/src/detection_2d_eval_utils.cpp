@@ -9,8 +9,6 @@
 
 namespace easy_deploy {
 
-using namespace easy_deploy;
-
 static void WriteResultToJson(const std::string &file_path, const std::vector<BBox2D> &results)
 {
   nlohmann::json j;

@@ -6,8 +6,6 @@
 
 namespace easy_deploy {
 
-using namespace easy_deploy;
-
 void test_detection_2d_algorithm_correctness(const std::shared_ptr<BaseDetectionModel> &model,
                                              const std::string &test_image_path,
                                              float              conf_threshold,

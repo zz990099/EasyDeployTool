@@ -10,6 +10,7 @@ find_package(OpenCV REQUIRED)
 set(source_file
     src/detection_2d_test_utils.cpp
     src/sam_test_utils.cpp
+    src/stereo_matching_test_utils.cpp
 )
 
 include_directories(

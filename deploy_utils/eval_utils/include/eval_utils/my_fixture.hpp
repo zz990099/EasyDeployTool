@@ -4,8 +4,6 @@
 #include <functional>
 #include <iostream>
 
-#include <gflags/gflags.h>
-
 namespace easy_deploy {
 
 struct FixtureCase {

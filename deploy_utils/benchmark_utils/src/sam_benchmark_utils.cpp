@@ -5,8 +5,6 @@
 
 namespace easy_deploy {
 
-using namespace easy_deploy;
-
 void benchmark_sam_sync(benchmark::State &state, const std::shared_ptr<BaseSamModel> &model)
 {
   cv::Mat dummy_input(480, 720, CV_8UC3);

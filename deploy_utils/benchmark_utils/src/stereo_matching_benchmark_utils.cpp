@@ -1,12 +1,12 @@
-#include "benchmark_utils/detection_2d_benchmark_utils.hpp"
+#include "benchmark_utils/stereo_matching_benchmark_utils.hpp"
 
 #include <benchmark/benchmark.h>
 #include <glog/logging.h>
 
 namespace easy_deploy {
 
-void benchmark_detection_2d_sync(benchmark::State                          &state,
-                                 const std::shared_ptr<BaseDetectionModel> &model)
+void benchmark_stereo_matching_sync(benchmark::State                               &state,
+                                    const std::shared_ptr<BaseStereoMatchingModel> &model)
 {
   cv::Mat dummy_input(480, 720, CV_8UC3);
 
@@ -15,15 +15,15 @@ void benchmark_detection_2d_sync(benchmark::State                          &stat
   {
     for (size_t i = 0; i < state.range(0); ++i)
     {
-      std::vector<BBox2D> det_results;
-      model->Detect(dummy_input.clone(), det_results, 0.4, false);
+      cv::Mat disp;
+      CHECK(model->ComputeDisp(dummy_input, dummy_input, disp));
     }
   }
   state.SetItemsProcessed(state.iterations() * state.range(0));
 }
 
-void benchmark_detection_2d_async(benchmark::State                          &state,
-                                  const std::shared_ptr<BaseDetectionModel> &model)
+void benchmark_stereo_matching_async(benchmark::State                               &state,
+                                     const std::shared_ptr<BaseStereoMatchingModel> &model)
 {
   cv::Mat dummy_input(480, 720, CV_8UC3);
   model->InitPipeline();
@@ -31,10 +31,10 @@ void benchmark_detection_2d_async(benchmark::State                          &sta
   // 基准测试主循环
   for (auto _ : state)
   {
-    std::vector<std::future<std::vector<BBox2D>>> futs;
+    std::vector<std::future<cv::Mat>> futs;
     for (size_t i = 0; i < state.range(0); ++i)
     {
-      auto fut = model->DetectAsync(dummy_input.clone(), 0.4, false, false);
+      auto fut = model->ComputeDispAsync(dummy_input.clone(), dummy_input.clone());
       CHECK(fut.valid());
       futs.push_back(std::move(fut));
     }
