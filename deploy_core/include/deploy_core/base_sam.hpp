@@ -1,7 +1,7 @@
 #pragma once
 
 #include "deploy_core/base_infer_core.hpp"
-#include "deploy_core/common.hpp"
+#include "common_utils/pipeline_image.hpp"
 
 #include <opencv2/opencv.hpp>
 

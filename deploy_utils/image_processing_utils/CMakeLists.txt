@@ -15,14 +15,17 @@ endif()
 find_package(OpenCV REQUIRED)
 
 set(source_file
-    src/detection_2d_preprocess_cpu.cpp
-    src/detection_2d_postprocess_cpu.cpp
+    src/image_processing_cpu.cpp
 )
 
 if(ENABLE_TENSORRT)
+  find_package(CUDA REQUIRED)
+  set(CMAKE_CUDA_COMPILER /usr/local/cuda/bin/nvcc)
+  enable_language(CUDA)
+  include_directories(${CUDA_INCLUDE_DIRS})
   list(APPEND source_file
-          src/detection_2d_preprocess_cuda.cpp
-          src/detection_2d_cuda_preprocess.cu
+          src/image_processing_cuda_kernel.cu
+          src/image_processing_cuda.cpp
   )
 endif()
 

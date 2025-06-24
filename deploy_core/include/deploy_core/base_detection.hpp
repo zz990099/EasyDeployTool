@@ -9,34 +9,9 @@
 
 #include "deploy_core/async_pipeline.hpp"
 #include "deploy_core/base_infer_core.hpp"
+#include "common_utils/pipeline_image.hpp"
 
 namespace easy_deploy {
-
-/**
- * @brief A abstract interface class which defines the preprocess interface of detection_2d
- * algorithms.
- *
- */
-class IDetectionPreProcess {
-public:
-  virtual float Preprocess(std::shared_ptr<IPipelineImageData> input_image_data,
-                           ITensor                            *tensor,
-                           int                                 dst_height,
-                           int                                 dst_width) = 0;
-};
-
-/**
- * @brief A abstract interface class which defines the postprocess interface of detection_2d
- * algorithms.
- *
- */
-class IDetectionPostProcess {
-public:
-  virtual void Postprocess(const std::vector<void *> &output_blobs_ptr,
-                           std::vector<BBox2D>       &results,
-                           float                      conf_threshold,
-                           float                      transform_scale) = 0;
-};
 
 /**
  * @brief The common detection_2d pipeline package wrapper.
@@ -181,16 +156,6 @@ protected:
 class BaseDetection2DFactory {
 public:
   virtual std::shared_ptr<BaseDetectionModel> Create() = 0;
-};
-
-class BaseDetectionPreprocessFactory {
-public:
-  virtual std::shared_ptr<IDetectionPreProcess> Create() = 0;
-};
-
-class BaseDetectionPostprocessFactory {
-public:
-  virtual std::shared_ptr<IDetectionPostProcess> Create() = 0;
 };
 
 } // namespace easy_deploy

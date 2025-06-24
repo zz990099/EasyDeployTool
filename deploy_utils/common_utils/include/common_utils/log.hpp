@@ -102,4 +102,43 @@ inline void FormatMsg(char *buf, size_t buflen, const char *fmt, ...)
 #define LOG_WARN(fmt, ...) EasyDeployLog(warn, fmt, ##__VA_ARGS__)
 #define LOG_ERROR(fmt, ...) EasyDeployLog(error, fmt, ##__VA_ARGS__)
 
+// some macro
+#define CHECK_STATE(state, fmt, ...) \
+  {                                  \
+    if (!(state))                    \
+    {                                \
+      LOG_ERROR(fmt, ##__VA_ARGS__); \
+      return false;                  \
+    }                                \
+  }
+
+#define CHECK_STATE_THROW(state, fmt, ...)               \
+  {                                                      \
+    if (!(state))                                        \
+    {                                                    \
+      LOG_ERROR(fmt, ##__VA_ARGS__);                     \
+      char _msg[1024];                                   \
+      FormatMsg(_msg, sizeof(_msg), fmt, ##__VA_ARGS__); \
+      throw std::runtime_error(_msg);                    \
+    }                                                    \
+  }
+
+#define MESSURE_DURATION(run)                                                              \
+  {                                                                                        \
+    auto start = std::chrono::high_resolution_clock::now();                                \
+    (run);                                                                                 \
+    auto end = std::chrono::high_resolution_clock::now();                                  \
+    LOG_DEBUG("%s cost(us): %ld", #run,                                                    \
+              std::chrono::duration_cast<std::chrono::microseconds>(end - start).count()); \
+  }
+
+#define MESSURE_DURATION_AND_CHECK_STATE(run, fmt, ...)                                    \
+  {                                                                                        \
+    auto start = std::chrono::high_resolution_clock::now();                                \
+    CHECK_STATE((run), fmt, ##__VA_ARGS__);                                                \
+    auto end = std::chrono::high_resolution_clock::now();                                  \
+    LOG_DEBUG("%s cost(us): %ld", #run,                                                    \
+              std::chrono::duration_cast<std::chrono::microseconds>(end - start).count()); \
+  }
+
 } // namespace easy_deploy

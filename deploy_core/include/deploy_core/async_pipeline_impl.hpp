@@ -5,8 +5,8 @@
 #include <vector>
 
 #include "common_utils/block_queue.hpp"
-
-#include "deploy_core/common.hpp"
+#include "common_utils/log.hpp"
+#include "common_utils/types.hpp"
 
 namespace easy_deploy {
 
