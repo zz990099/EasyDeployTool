@@ -51,7 +51,7 @@ cv::Mat read_pfm(const std::string &path)
   file.read(reinterpret_cast<char *>(data.data()), nPixels * sizeof(float));
 
   // PFM存储是“从左下角开始”，我们需要flipY
-  cv::Mat image(height, width, channels == 1 ? CV_32FC1 : CV_32FC3, data.data());
+  cv::Mat image(height, width, CV_32FC1, data.data());
   cv::Mat image_flipped;
   cv::flip(image, image_flipped, 0); // 上下翻转
 
@@ -137,7 +137,7 @@ void eval_accuracy_sceneflow_stereo_matching(const std::shared_ptr<BaseStereoMat
     auto pred_disp      = fut.get();
     EVAL_STEREO_CHECK(pred_disp.size() == disp_gt.size(), "Predicted/GT disp size mismatch!");
 
-    cv::Mat1b mask = (disp_gt > 0);
+    cv::Mat1b mask = (disp_gt > 0) & (disp_gt < 192);
     cv::Mat1f mask_f;
     mask.convertTo(mask_f, CV_32F); // 这里，mask的0/255被转换为0.f/255.f，要提前变成0/1
     mask_f /= 255.0f;               // 现在mask_f是0/1 float
